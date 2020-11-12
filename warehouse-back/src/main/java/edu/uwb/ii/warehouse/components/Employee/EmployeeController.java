@@ -38,6 +38,11 @@ public class EmployeeController {
         employee.setFirstName(updatedEmployee.getFirstName());
         employee.setEmail(updatedEmployee.getEmail());
         employee.setLastName(updatedEmployee.getLastName());
+        employee.setPassword(updatedEmployee.getPassword());
+        employee.setPhoneNumber(updatedEmployee.getPhoneNumber());
+        employee.setSalary(updatedEmployee.getSalary());
+        employee.setPosition(updatedEmployee.getPosition());
         return employeeRepository.save(employee);
     }
+
 }

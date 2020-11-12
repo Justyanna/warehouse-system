@@ -1,8 +1,12 @@
 package edu.uwb.ii.warehouse.components.Employee;
 
+import edu.uwb.ii.warehouse.components.Role.RoleModel;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Set;
 
 @Document(collection = "employees")
 public class EmployeeModel {
@@ -13,25 +17,26 @@ public class EmployeeModel {
     private String lastName;
     @Indexed(unique = true)
     private String email;
+    private String username;
     private String password;
     private String phoneNumber;
     private Double salary;
     private String position;
-    private Boolean isAdmin;
-    private Boolean HR;
+    @DBRef
+    private Set<RoleModel> roles;
 
-    public EmployeeModel(String id, String firstName, String lastName, String email, String password, String phoneNumber, Double salary,
-                         String position, Boolean isAdmin, Boolean hr) {
+    public EmployeeModel(String id, String firstName, String lastName, String email, String username, String password,
+                         String phoneNumber, Double salary, String position, Set<RoleModel> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
         this.position = position;
-        this.isAdmin = isAdmin;
-        this.HR = hr;
+        this.roles = roles;
     }
 
 
@@ -56,7 +61,7 @@ public class EmployeeModel {
         this.lastName = lastName;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -92,7 +97,7 @@ public class EmployeeModel {
         this.id = id;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -100,19 +105,19 @@ public class EmployeeModel {
         this.password = password;
     }
 
-    Boolean getAdmin() {
-        return isAdmin;
+    public String getUsername() {
+        return username;
     }
 
-    void setAdmin(Boolean admin) {
-        isAdmin = admin;
+    void setUsername(String username) {
+        this.username = username;
     }
 
-    Boolean getHR() {
-        return HR;
+    public Set<RoleModel> getRoles() {
+        return roles;
     }
 
-    void setHR(Boolean HR) {
-        this.HR = HR;
+    void setRoles(Set<RoleModel> roles) {
+        this.roles = roles;
     }
 }
