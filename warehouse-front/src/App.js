@@ -1,13 +1,28 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import {LoginPage} from "./pages";
+import { LoginPage } from "./pages";
+import { useAuth } from "./services/Auth";
 
 const App = () => {
-  return (
+  const auth = useAuth();
+  React.useEffect(() => {
+    !auth.authorized && auth.initialize();
+  }, [auth]);
+
+  const authorizedRoutes = (
     <Switch>
-      <Route exact path="/"></Route>
-      <Route exact path="/login" component={LoginPage}></Route>
+      <Route exact path="/main" />
     </Switch>
   );
+
+  const unauthorizedRoutes = (
+    <Switch>
+      <Route exact path="/login" component={LoginPage} />
+      <Route exact path="/" />
+    </Switch>
+  );
+
+  return auth.authorized ? authorizedRoutes : unauthorizedRoutes;
 };
+
 export default App;
