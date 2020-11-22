@@ -11,7 +11,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class CustomEmployeeDetailsService implements UserDetailsService {
 
@@ -30,8 +33,11 @@ public class CustomEmployeeDetailsService implements UserDetailsService {
 
     public void saveUser(EmployeeModel user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        RoleModel userRole = roleRepository.findByRole(RoleEnum.ADMIN);
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        HashSet<RoleModel> roles = new HashSet<>();
+        for (RoleModel role: user.getRoles()) {
+            roles.add(roleRepository.findByRole(RoleEnum.valueOf(role.getId())));
+        }
+        user.setRoles(roles);
         employeeRepository.save(user);
     }
 

@@ -14,6 +14,11 @@ public class RoleModel {
 
     private String role;
 
+    public RoleModel(String id) {
+        this.id = id;
+        this.role = id;
+    }
+
     public String getId() {
         return id;
     }

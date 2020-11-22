@@ -17,7 +17,7 @@ public class EmployeeModel {
     private String lastName;
     @Indexed(unique = true)
     private String email;
-    private String username;
+
     private String password;
     private String phoneNumber;
     private Double salary;
@@ -25,13 +25,12 @@ public class EmployeeModel {
     @DBRef
     private Set<RoleModel> roles;
 
-    public EmployeeModel(String id, String firstName, String lastName, String email, String username, String password,
+    public EmployeeModel(String id, String firstName, String lastName, String email, String password,
                          String phoneNumber, Double salary, String position, Set<RoleModel> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
@@ -105,13 +104,6 @@ public class EmployeeModel {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    void setUsername(String username) {
-        this.username = username;
-    }
 
     public Set<RoleModel> getRoles() {
         return roles;
