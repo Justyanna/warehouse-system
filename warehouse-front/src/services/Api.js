@@ -7,15 +7,20 @@ const axiosInstance = axios.create({
   timeout: 10000,
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    config.headers["Authorization"] = `Bearer ${token}`;
-    return config;
-  },
-  (error) => {
-    Promise.reject(error);
-  }
-);
+axiosInstance.interceptors.request
+  .use
+  // localStorage.getItem("token") != null
+  //   ? (config) => {
+  //       return config;
+  //     }
+  //   : (config) => {
+  //       const token = localStorage.getItem("token");
+  //       config.headers["Authorization"] = `Bearer ${token}`;
+  //       return config;
+  //     },
+  // (error) => {
+  //   Promise.reject(error);
+  // }
+  ();
 
 export default axiosInstance;

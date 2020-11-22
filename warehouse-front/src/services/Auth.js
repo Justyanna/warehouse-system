@@ -9,14 +9,16 @@ const AuthProvider = (props) => {
   const [authorized, setAuthorized] = React.useState(false);
 
   const initialize = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const { data } = await api.post("/api/auth/verify", { token });
-      data.valid && setAuthorized(true);
-    } catch (ex) {}
+    // const token = localStorage.getItem("token");
+    // try {
+    //   const { data } = await api.post("/api/auth/verify", { token });
+    //   data.valid && setAuthorized(true);
+    // } catch (ex) {}
+    setAuthorized(true);
   };
 
   const login = async (email, password) => {
+    localStorage.removeItem("token");
     const body = {
       email,
       password,
@@ -31,7 +33,7 @@ const AuthProvider = (props) => {
       if (user && token) {
         localStorage.setItem("token", token);
         setAuthorized(true);
-        history.push("/");
+        history.push("/main");
         console.log("Log in");
       } else {
       }

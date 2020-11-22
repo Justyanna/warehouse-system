@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { LoginPage } from "./pages";
+import { LoginPage, MainPage } from "./pages";
 import { useAuth } from "./services/Auth";
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
 
   const authorizedRoutes = (
     <Switch>
-      <Route exact path="/main" />
+      <Route exact path="/main" component={MainPage} />
     </Switch>
   );
 
