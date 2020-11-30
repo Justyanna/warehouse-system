@@ -7,14 +7,22 @@ const AuthContext = React.createContext();
 const AuthProvider = (props) => {
   const history = useHistory();
   const [authorized, setAuthorized] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(false);
 
   const initialize = async () => {
-    // const token = localStorage.getItem("token");
-    // try {
-    //   const { data } = await api.post("/api/auth/verify", { token });
-    //   data.valid && setAuthorized(true);
-    // } catch (ex) {}
-    setAuthorized(true);
+    try {
+      const token = localStorage.getItem("token");
+      await api.post("/api/auth/verify", token).then((response) => {
+        if (response.status === 200) {
+          setAuthorized(true);
+          history.push("/main");
+        }
+      });
+    } catch (ex) {
+      setAuthorized(false);
+      localStorage.removeItem("token");
+      history.push("/login");
+    }
   };
 
   const login = async (email, password) => {
@@ -24,7 +32,6 @@ const AuthProvider = (props) => {
       password,
     };
 
-    console.log(body);
     try {
       const {
         data: { user, token },
@@ -34,24 +41,39 @@ const AuthProvider = (props) => {
         localStorage.setItem("token", token);
         setAuthorized(true);
         history.push("/main");
-        console.log("Log in");
       } else {
       }
-    } catch (ex) {
-      console.log(ex);
-      console.log("Bad username or password");
-    }
+    } catch (ex) {}
+  };
+
+  const checkIfAdmin = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await api
+        .post(
+          "/api/auth/isAdmin",
+          { headers: { Authorization: `Bearer ${token}` } },
+          token
+        )
+
+        .then((response) => {
+          if (response.status === 200) {
+            setIsAdmin(true);
+          }
+        });
+    } catch (ex) {}
+    console.log(isAdmin);
   };
 
   const logout = () => {
     setAuthorized(false);
     localStorage.removeItem("token");
-    history.push("/");
+    history.push("/login");
   };
 
   return (
     <AuthContext.Provider
-      value={{ initialize, login, logout, authorized }}
+      value={{ initialize, login, logout, checkIfAdmin, authorized }}
       {...props}
     />
   );

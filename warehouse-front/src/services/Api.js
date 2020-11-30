@@ -9,18 +9,14 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request
   .use
-  // localStorage.getItem("token") != null
-  //   ? (config) => {
-  //       return config;
-  //     }
+  // localStorage.getItem("token") === null
+  //   ? console.log("null")
   //   : (config) => {
   //       const token = localStorage.getItem("token");
   //       config.headers["Authorization"] = `Bearer ${token}`;
+  //       console.log("xd");
   //       return config;
-  //     },
-  // (error) => {
-  //   Promise.reject(error);
-  // }
+  //     }
   ();
 
 export default axiosInstance;

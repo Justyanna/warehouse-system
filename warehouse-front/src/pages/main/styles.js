@@ -1,15 +1,29 @@
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(() => ({
-  box: {
-    margin: "10%",
+  content: {
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "#262626",
   },
+  box: {
+    margin: "25px",
+  },
+  bar: {
+    bottom: "0",
+    backgroundColor: "#262626",
+  },
+
   paper: {
-    padding: "5%",
-    backgroundColor: "#c9c7c7",
+    paddingTop: "2vw",
+    backgroundColor: "#4f4e4d",
     height: "100px",
     textAlign: "center",
-    fontSize: "2rem",
+    fontSize: "1.5rem",
+    fontFamily: "Lato",
+    color: "#fff2e6",
+    verticalAlign: "middle",
+    width: "100%",
   },
 }));
 
