@@ -7,7 +7,6 @@ const AuthContext = React.createContext();
 const AuthProvider = (props) => {
   const history = useHistory();
   const [authorized, setAuthorized] = React.useState(false);
-  const [isAdmin, setIsAdmin] = React.useState(false);
 
   const initialize = async () => {
     try {
@@ -46,23 +45,31 @@ const AuthProvider = (props) => {
     } catch (ex) {}
   };
 
+  const ReturnRole = () => {
+    const [result, setResult] = React.useState(null);
+    React.useEffect(() => {
+      (async function () {
+        setResult(await checkIfAdmin());
+      })();
+    });
+    return result;
+  };
+
   const checkIfAdmin = async () => {
+    var isAdmin = false;
     try {
       const token = localStorage.getItem("token");
       await api
-        .post(
-          "/api/auth/isAdmin",
-          { headers: { Authorization: `Bearer ${token}` } },
-          token
-        )
-
+        .post("/api/auth/isAdmin", token, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then((response) => {
           if (response.status === 200) {
-            setIsAdmin(true);
+            isAdmin = true;
           }
         });
     } catch (ex) {}
-    console.log(isAdmin);
+    return isAdmin;
   };
 
   const logout = () => {
@@ -73,7 +80,14 @@ const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ initialize, login, logout, checkIfAdmin, authorized }}
+      value={{
+        initialize,
+        login,
+        logout,
+        checkIfAdmin,
+        ReturnRole,
+        authorized,
+      }}
       {...props}
     />
   );

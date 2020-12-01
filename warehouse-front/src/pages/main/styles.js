@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#262626",
   },
   box: {
-    margin: "25px",
+    margin: "10vw",
   },
   bar: {
     bottom: "0",
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   },
 
   paper: {
-    paddingTop: "2vw",
+    padding: "3vw",
     backgroundColor: "#4f4e4d",
     height: "100px",
     textAlign: "center",
