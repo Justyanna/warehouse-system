@@ -22,9 +22,11 @@ public class EmployeeController {
         return employeeRepository.save(employee);
     }
 
+    @CrossOrigin
     @GetMapping
     public List<EmployeeModel> getAll() {
-        return employeeRepository.findAll();
+        List<EmployeeModel> employeeModels = employeeRepository.findAll();
+        return employeeModels;
     }
 
     @GetMapping(value = "/{id}")

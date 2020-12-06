@@ -40,11 +40,11 @@ public class EmployeeModel {
 
 
 
-    String getId() {
+    public String getId() {
         return id;
     }
 
-    String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -52,7 +52,7 @@ public class EmployeeModel {
         this.firstName = firstName;
     }
 
-    String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
@@ -68,7 +68,7 @@ public class EmployeeModel {
         this.email = email;
     }
 
-    String getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -76,7 +76,7 @@ public class EmployeeModel {
         this.phoneNumber = phoneNumber;
     }
 
-    Double getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
@@ -84,7 +84,7 @@ public class EmployeeModel {
         this.salary = salary;
     }
 
-    String getPosition() {
+    public String getPosition() {
         return position;
     }
 
@@ -96,7 +96,7 @@ public class EmployeeModel {
         this.id = id;
     }
 
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 
