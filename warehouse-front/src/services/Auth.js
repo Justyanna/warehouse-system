@@ -7,6 +7,7 @@ const AuthContext = React.createContext();
 const AuthProvider = (props) => {
   const history = useHistory();
   const [authorized, setAuthorized] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(false);
 
   const initialize = async () => {
     try {
@@ -45,18 +46,8 @@ const AuthProvider = (props) => {
     } catch (ex) {}
   };
 
-  const ReturnRole = () => {
-    const [result, setResult] = React.useState(null);
-    React.useEffect(() => {
-      (async function () {
-        setResult(await checkIfAdmin());
-      })();
-    });
-    return result;
-  };
-
   const checkIfAdmin = async () => {
-    var isAdmin = false;
+   
     try {
       const token = localStorage.getItem("token");
       await api
@@ -65,11 +56,17 @@ const AuthProvider = (props) => {
         })
         .then((response) => {
           if (response.status === 200) {
-            isAdmin = true;
+            setIsAdmin(true);
+            history.push("/adminPanel");
           }
         });
-    } catch (ex) {}
-    return isAdmin;
+    } catch (ex) {
+      setIsAdmin(false);
+      setAuthorized(false);
+      localStorage.removeItem("token");
+      history.push("/login");
+    }
+   
   };
 
   const logout = () => {
@@ -85,8 +82,8 @@ const AuthProvider = (props) => {
         login,
         logout,
         checkIfAdmin,
-        ReturnRole,
         authorized,
+        isAdmin
       }}
       {...props}
     />

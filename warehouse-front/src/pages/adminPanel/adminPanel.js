@@ -2,19 +2,24 @@ import React from "react";
 import { Grid, Button, Toolbar, IconButton, AppBar } from "@material-ui/core";
 import useStyles from "./styles";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { useAuth } from "../../services/Auth.js";
+import {useAuth} from "../../services/Auth.js";
+import { useHistory } from "react-router-dom";
 
-const MainPage = () => {
+const AdminPanel = () => {
+  const history = useHistory();
   const classes = useStyles();
   const auth = useAuth();
+   
+    const logout = async () => {
+      await auth.logout();
+    };
 
-  const logout = async () => {
-    await auth.logout();
-  };
-
-
-  return (
-      <div className={classes.content}>
+    const callEmployeeCrudPane = () => {
+      history.push("/employees");
+    }
+  
+    return(
+        <div className={classes.content}>
         <AppBar position="static" className={classes.bar}>
           <Toolbar>
             <IconButton
@@ -32,27 +37,27 @@ const MainPage = () => {
         <div className={classes.box}>
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <Button className={classes.paper}>ZAMÓWIENIA</Button>
+              <Button className={classes.paper} onClick={callEmployeeCrudPane}>ZARZĄDZAJ PRACOWNIKAMI</Button>
             </Grid>
             <Grid item xs={6}>
-              <Button className={classes.paper}>ZADANIA</Button>
+              <Button className={classes.paper}>ZARZĄDZAJ KLIENTAMI</Button>
             </Grid>
             <Grid item xs={6}>
-              <Button className={classes.paper}>POZYCJE</Button>
+              <Button className={classes.paper}>ZARZĄDZAJ ZAMÓWIENIAMI</Button>
             </Grid>
             <Grid item xs={6}>
-              <Button className={classes.paper}>WERYFIKACJA</Button>
+              <Button className={classes.paper}>ZARZĄDZAJ ASORTYMENTEM</Button>
             </Grid>
             <Grid item xs={6}>
-              <Button className={classes.paper}>WYPŁATA</Button>
+              <Button className={classes.paper}>USTAL GRAFIKI</Button>
             </Grid>
             <Grid item xs={6}>
-              <Button className={classes.paper}>GRAFIK</Button>
+              <Button className={classes.paper}>DODAJ KLIENTA</Button>
             </Grid>
           </Grid>
         </div>
       </div>
     );
- 
-};
-export default MainPage;
+}
+
+export default AdminPanel;

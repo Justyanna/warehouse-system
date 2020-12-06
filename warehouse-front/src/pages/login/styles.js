@@ -3,14 +3,12 @@ import background from "../../resources/background1.jpg";
 
 const useStyles = makeStyles(() => ({
   body: {
-    backgroundImage: `url(${background})`,
-    backgroundRepeat: "no-repeat",
-    backgroundAttachment: "fixed",
-    width: "100vw",
+    height: "100vh",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    minHeight: "100vh",
+    backgroundImage: `url(${background})`,
   },
 
   loginBox: {
@@ -19,7 +17,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     width: "45%",
     minWidth: "440px",
-    height: "50%",
+    height: "45%",
     "&:before": {
       content: "''",
       display: "block",
@@ -29,6 +27,7 @@ const useStyles = makeStyles(() => ({
       background: `rgba( 52, 53, 56, 0.70)`,
       mixBlendMode: "hard-light",
     },
+    
   },
 
   textField: {
@@ -56,10 +55,10 @@ const useStyles = makeStyles(() => ({
     background: `rgba( 52, 53, 56, 0.85)`,
     margin: "10%",
     padding: "10px",
-    fontSize: "1.5rem",
+    fontSize: "1.5vh",
     color: "white",
     border: "2px solid white",
-    minWidth: "150px",
+    minWidth: "100px",
   },
 }));
 

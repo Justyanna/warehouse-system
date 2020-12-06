@@ -8,15 +8,14 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request
-  .use
+  .use(
   // localStorage.getItem("token") === null
   //   ? console.log("null")
   //   : (config) => {
   //       const token = localStorage.getItem("token");
   //       config.headers["Authorization"] = `Bearer ${token}`;
-  //       console.log("xd");
   //       return config;
   //     }
-  ();
+  );
 
 export default axiosInstance;

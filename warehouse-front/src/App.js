@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { LoginPage, MainPage } from "./pages";
+import { LoginPage, MainPage, EmployeeCrudPage, AdminPanel } from "./pages";
 import { useAuth } from "./services/Auth";
 
 const App = () => {
@@ -9,9 +9,20 @@ const App = () => {
     !auth.authorized && auth.initialize();
   }, [auth]);
 
+  React.useEffect(() => {
+    auth.authorized && !auth.isAdmin && auth.checkIfAdmin();
+  }, [auth]);
+
   const authorizedRoutes = (
     <Switch>
       <Route exact path="/main" component={MainPage} />
+    </Switch>
+  );
+
+  const adminRole = (
+    <Switch>
+      <Route exact path="/employees" component={EmployeeCrudPage} />
+      <Route exact path="/adminPanel" component={AdminPanel} />
     </Switch>
   );
 
@@ -22,7 +33,7 @@ const App = () => {
     </Switch>
   );
 
-  return auth.authorized ? authorizedRoutes : unauthorizedRoutes;
+  return auth.authorized ? (auth.isAdmin ? adminRole: authorizedRoutes) : unauthorizedRoutes;
 };
 
 export default App;
