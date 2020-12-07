@@ -1,14 +1,11 @@
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(() => ({
-  body:{
-    backgroundColor: "#262626",
-  },
 
   content: {
     width: "100vw",
     height:"100vh",
-    backgroundColor: "#262626",
+    backgroundColor: "#515151",
   },
 
   search:{
@@ -20,9 +17,9 @@ const useStyles = makeStyles(() => ({
  
   bar: {
     bottom: "0",
-    backgroundColor: "#262626",
+    backgroundColor: "#1a1a1a",
   },
-
+  
   root:{
     padding:"3%"
   },

@@ -4,20 +4,21 @@ const useStyles = makeStyles(() => ({
   content: {
     width: "100vw",
     height: "100vh",
-    backgroundColor: "#262626",
+    backgroundColor: "#515151",
   },
   box: {
     margin: "10vw",
     width:"80vw"
   },
+
   bar: {
     bottom: "0",
-    backgroundColor: "#262626",
+    backgroundColor: "#1a1a1a",
   },
 
   paper: {
     padding: "3vw",
-    backgroundColor: "#4f4e4d",
+    backgroundColor: "#262626",
     height: "100px",
     textAlign: "center",
    

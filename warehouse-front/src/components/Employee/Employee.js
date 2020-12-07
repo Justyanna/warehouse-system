@@ -22,15 +22,17 @@ const Employee = ( {id, firstName, lastName, email, phoneNumber, salary, positio
     />
     
     <CardContent>
-      <div>
+      <div >
         Numer telefonu: {phoneNumber}<br></br>
         Płaca: {salary}<br></br>
         Stanowisko: {position}
       </div>
     </CardContent>
     <CardActions disableSpacing>
-    <Button color="secondary">Popraw</Button>
-    <Button color="secondary">Usuń</Button>
+      <div className={classes.buttonBox}>
+      <Button className={classes.buttonUpdate} color="secondary">Popraw</Button>
+      <Button className={classes.buttonDelete} color="secondary">Usuń</Button>
+    </div>
     </CardActions>
    
   </Card>
