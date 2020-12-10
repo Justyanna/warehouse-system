@@ -9,11 +9,7 @@ import useStyles from "./styles";
 
 const Employee = ( {id, firstName, lastName, email, phoneNumber, salary, position}) => {
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
 
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    }
     return(
     <Card className={classes.root}>
     <CardHeader

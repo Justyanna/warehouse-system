@@ -10,9 +10,13 @@ const useStyles = makeStyles(() => ({
 
   search:{
     backgroundColor: "white",
-    margin:"20px",
+    margin:"10px",
     padding:"20px",
     borderRadius: "25px",
+ 
+    display:"grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
+    gridGap:"1rem"
   },
  
   bar: {
@@ -21,15 +25,18 @@ const useStyles = makeStyles(() => ({
   },
   
   root:{
-    padding:"3%"
+    paddingLeft:"20px",
+    paddingRight:"20px",
+    display:"grid",
+    gridTemplateRows: "auto",
+    gridGap:"0.5rem"
   },
   
   main:{
     display:"grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
     gridGap:"1rem"
-  }
-
+  },
 
 }));
 
