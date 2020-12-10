@@ -1,11 +1,13 @@
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  rooot: {
     minWidth: "200px",
     maxWidth:"370px",
     backgroundColor:  "#d6d6d6",
-    color:"black"
+    color:"black",
+    height:"230px",
+    spacing:1
   },
 
   expand: {

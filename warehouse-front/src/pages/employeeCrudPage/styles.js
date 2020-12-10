@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#1a1a1a",
   },
   
-  root:{
+  rooot:{
     paddingLeft:"20px",
     paddingRight:"20px",
     display:"grid",
@@ -33,8 +33,10 @@ const useStyles = makeStyles(() => ({
   },
   
   main:{
+    paddingLeft:"35px",
+    paddingRight:"35px",
     display:"grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(16rem, 1fr))",
     gridGap:"1rem"
   },
 

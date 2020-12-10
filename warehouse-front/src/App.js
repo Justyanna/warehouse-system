@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { LoginPage, MainPage, EmployeeCrudPage, AdminPanel } from "./pages";
 import { useAuth } from "./services/Auth";
 
@@ -15,6 +15,7 @@ const App = () => {
 
   const authorizedRoutes = (
     <Switch>
+      <Redirect from="/login" to="/main" />
       <Route exact path="/main" component={MainPage} />
     </Switch>
   );
@@ -22,14 +23,13 @@ const App = () => {
   const adminRole = (
     <Switch>
       <Route exact path="/employees" component={EmployeeCrudPage} />
-      <Route exact path="/adminPanel" component={AdminPanel} />
+      <Route exact path="/main" component={AdminPanel} />
     </Switch>
   );
 
   const unauthorizedRoutes = (
     <Switch>
       <Route exact path="/login" component={LoginPage} />
-      <Route exact path="/" />
     </Switch>
   );
 

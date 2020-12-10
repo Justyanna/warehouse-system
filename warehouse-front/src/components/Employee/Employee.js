@@ -11,7 +11,7 @@ const Employee = ( {id, firstName, lastName, email, phoneNumber, salary, positio
     const classes = useStyles();
 
     return(
-    <Card className={classes.root}>
+    <Card className={classes.rooot}>
     <CardHeader
       title={firstName + " "+ lastName}
       subheader={email}

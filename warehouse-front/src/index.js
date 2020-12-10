@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
-
 import * as serviceWorker from "./serviceWorker";
 import { AuthProvider } from "./services/Auth";
 import theme from "./utils/theme";
@@ -21,6 +20,6 @@ const WrappedApp = () => (
   </CssBaseline>
 );
 
-ReactDOM.render(<WrappedApp />, document.getElementById("root"));
+ReactDOM.render(<WrappedApp/>, document.getElementById("root"));
 
 serviceWorker.unregister();

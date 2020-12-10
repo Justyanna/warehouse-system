@@ -15,7 +15,6 @@ const AuthProvider = (props) => {
       await api.post("/api/auth/verify", token).then((response) => {
         if (response.status === 200) {
           setAuthorized(true);
-          history.push("/main");
         }
       });
     } catch (ex) {
@@ -47,7 +46,6 @@ const AuthProvider = (props) => {
   };
 
   const checkIfAdmin = async () => {
-   
     try {
       const token = localStorage.getItem("token");
       await api
@@ -57,7 +55,6 @@ const AuthProvider = (props) => {
         .then((response) => {
           if (response.status === 200) {
             setIsAdmin(true);
-            history.push("/adminPanel");
           }
         });
     } catch (ex) {

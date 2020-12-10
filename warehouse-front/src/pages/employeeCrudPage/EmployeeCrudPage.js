@@ -9,6 +9,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 import { useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import Pagination from "./../../components/pagination"
 
 const EmployeeCrudPage = () =>
 {
@@ -19,6 +20,13 @@ const EmployeeCrudPage = () =>
   const { data: employees } = useFetch("/employee");
   const [value, setValue] = React.useState("");
   const [field, setFiled] = React.useState("lastName");
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [postsPerPage] = React.useState(12);
+
+  const indexOfLastEmployees = currentPage * postsPerPage;
+  const indexOfFirstEmployees = indexOfLastEmployees - postsPerPage;
+  const currentEmployees = employees && employees.slice(indexOfFirstEmployees, indexOfLastEmployees);
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   const fields = [
     {
@@ -52,7 +60,7 @@ const EmployeeCrudPage = () =>
   };
 
   const undo = () => {
-    history.push("/adminPanel");
+    history.push("/main");
   };
 
   const employeesArray = employees ? employees : [
@@ -93,7 +101,7 @@ const EmployeeCrudPage = () =>
           </IconButton>
         </Toolbar>
       </AppBar>
-      <div  className={classes.root}>
+      <div  className={classes.rooot}>
         <div  className={classes.search}>
           <TextField
               className={classes.textField}
@@ -132,12 +140,13 @@ const EmployeeCrudPage = () =>
           { field && value ? employees.filter(employee => employee[field] === value).map(({_id: id, firstName, lastName, email, phoneNumber, salary, position}) => (
                 <Employee key={email} {...{ id, firstName, lastName, email, phoneNumber, salary, position }} />
             )):
-            employees.map(({_id: id, firstName, lastName, email, phoneNumber, salary, position}) => (
+            currentEmployees.map(({_id: id, firstName, lastName, email, phoneNumber, salary, position}) => (
                 <Employee key={email} {...{ id, firstName, lastName, email, phoneNumber, salary, position }} />
             ))
           }
           </div>
         </div>
+        {( !value) && <Pagination employeesPerPage={postsPerPage} total ={employees && employees.length} paginate={paginate}></Pagination>}
     </div>
   );
     
