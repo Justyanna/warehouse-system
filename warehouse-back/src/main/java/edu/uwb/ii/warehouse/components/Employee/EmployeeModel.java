@@ -96,7 +96,7 @@ public class EmployeeModel {
         this.id = id;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
     }
 

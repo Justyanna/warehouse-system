@@ -13,8 +13,13 @@ public class EmployeeController {
 
     @Autowired
     private final EmployeeRepository employeeRepository;
+    @Autowired
+    private CustomEmployeeDetailsService employeeDetailsService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {this.employeeRepository = employeeRepository;}
+    public EmployeeController(EmployeeRepository employeeRepository,
+                              CustomEmployeeDetailsService employeeDetailsService) {this.employeeRepository = employeeRepository;
+        this.employeeDetailsService = employeeDetailsService;
+    }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -34,6 +39,7 @@ public class EmployeeController {
         return employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
     }
 
+    @CrossOrigin
     @PutMapping(value = "/{id}")
     public EmployeeModel update(@PathVariable String id, @RequestBody EmployeeModel updatedEmployee) {
         EmployeeModel employee = employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
@@ -44,7 +50,14 @@ public class EmployeeController {
         employee.setPhoneNumber(updatedEmployee.getPhoneNumber());
         employee.setSalary(updatedEmployee.getSalary());
         employee.setPosition(updatedEmployee.getPosition());
-        return employeeRepository.save(employee);
+        employee.setPassword(updatedEmployee.getPassword());
+        return employeeDetailsService.saveUser(employee);
     }
 
+    @CrossOrigin
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable String id) {
+        EmployeeModel employee = employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        employeeRepository.delete(employee);
+    }
 }

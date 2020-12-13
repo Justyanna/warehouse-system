@@ -31,14 +31,15 @@ public class CustomEmployeeDetailsService implements UserDetailsService {
         return employeeRepository.findByEmail(email);
     }
 
-    public void saveUser(EmployeeModel user) {
+    public EmployeeModel saveUser(EmployeeModel user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         HashSet<RoleModel> roles = new HashSet<>();
         for (RoleModel role: user.getRoles()) {
-            roles.add(roleRepository.findByRole(RoleEnum.valueOf(role.getId())));
+            roles.add(roleRepository.findByRole(RoleEnum.valueOf(role.getRole())));
         }
         user.setRoles(roles);
         employeeRepository.save(user);
+        return user;
     }
 
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
