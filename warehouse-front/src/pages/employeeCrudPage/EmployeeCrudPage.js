@@ -11,6 +11,9 @@ import { useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Pagination from "./../../components/pagination"
 import { ToastContainer } from 'react-toastify';
+import AddEmployeeDialog from "./../../components/AddEmployeeDialog";
+import { toast } from 'react-toastify';
+import api from "./../../services/Api";
 
 const EmployeeCrudPage = () =>
 {
@@ -18,16 +21,75 @@ const EmployeeCrudPage = () =>
   const classes = useStyles();
   const auth = useAuth();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
   const { data: employees , refetch: refetchEmployees} = useFetch("/employee");
   const [value, setValue] = React.useState("");
   const [field, setFiled] = React.useState("lastName");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [postsPerPage] = React.useState(12);
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [salary, setSalary] = React.useState("");
+  const [position, setPosition] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [passwordRe, setPasswordRe] = React.useState("");
+  const [role, setRole] = React.useState("");
+
 
   const indexOfLastEmployees = currentPage * postsPerPage;
   const indexOfFirstEmployees = indexOfLastEmployees - postsPerPage;
   const currentEmployees = employees && employees.slice(indexOfFirstEmployees, indexOfLastEmployees);
   const paginate = pageNumber => setCurrentPage(pageNumber);
+  const roles =[
+    {
+      value: "EMPLOYEE",
+      label: "Pracownik",
+    },
+    {
+      value: "ADMIN",
+      label: "Administrator",
+    },
+    {
+      value: "MANAGER",
+      label: "Kierownik zmiany",
+    }
+  ];
+  const handleAccept = async() => {
+    setSubmitting(true);
+    const employee = {
+      "firstName":firstName,
+      "lastName":  lastName,
+      "email": email,
+      "password" : password,
+      "phoneNumber":  phoneNumber,
+      "salary" :  salary,
+      "position":  position,
+      "roles" : new Array(role)
+  }
+  console.log(employee)
+  if(firstName && lastName &&email && password && passwordRe && phoneNumber && salary && position && role)
+   { try {
+        const token = localStorage.getItem("token");
+        await api.post(`/api/auth/register`, employee, {
+            headers: { Authorization: `Bearer ${token}` }});
+            toast.success("Dodano nowego pracownika!");
+    
+    } catch (ex) {
+        toast.error("Przepraszamy, coś nie pykło!");
+    }
+  }
+  
+    setSubmitting(false);
+};
+
+const handleCancel= () =>{
+  setIsDialogOpen(false);
+}
+  
+
+
 
   const fields = [
     {
@@ -56,19 +118,28 @@ const EmployeeCrudPage = () =>
     await auth.logout();
   };
 
-  const handleChange = (event) => {
-    setFiled(event.target.value);
-  };
+  const handleChange = (setter) => (event) => {
+    setter(event.target.value);
+    };
+
 
   const undo = () => {
     history.push("/main");
   };
+
+  const openAddDialog = () =>{
+    setIsDialogOpen(true);
+  }
 
   const employeesArray = employees ? employees : [
     { lastName: "Doe"},]
 
   const flatProps = {
     options: employeesArray.map((option) => option[field]),
+  };
+  
+  const flatPropsRole = {
+    options: roles.map((option) => option.label),
   };
   
 
@@ -100,7 +171,7 @@ const EmployeeCrudPage = () =>
             <UndoRoundedIcon/>
           </IconButton>
 
-          <Button className={classes.add}>Dodaj pracownika</Button>
+          <Button className={classes.add} onClick={openAddDialog}>Dodaj pracownika</Button>
         </Toolbar>
       </AppBar>
       <div  className={classes.rooot}>
@@ -150,6 +221,14 @@ const EmployeeCrudPage = () =>
         </div>
         <ToastContainer />
         {( !value) && <Pagination employeesPerPage={postsPerPage} total ={employees && employees.length} paginate={paginate}></Pagination>}
+        <AddEmployeeDialog {...{ firstName, setFirstName, lastName, setLastName, email, setEmail, password, 
+        setPassword, passwordRe, setPasswordRe, phoneNumber, setPhoneNumber, salary, 
+        setSalary, position, setPosition, roles, role, setRole, isDialogOpen, handleCancel,
+         handleAccept, handleChange, submitting, flatPropsRole, classes}}></AddEmployeeDialog>
+
+
+
+
     </div>
   );
     
