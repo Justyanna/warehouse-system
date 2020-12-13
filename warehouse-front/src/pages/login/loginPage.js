@@ -2,12 +2,12 @@ import React from "react";
 import { Box, TextField, Button } from "@material-ui/core";
 import useStyles from "./styles";
 import { useAuth } from "../../services/Auth.js";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
+import { ToastContainer} from 'react-toastify';
 
 const LoginPage = () => {
   const classes = useStyles();

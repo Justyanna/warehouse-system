@@ -1,7 +1,7 @@
 import React from "react"
 import Employee from "./../../components/Employee"
 import useFetch from "./../../utils/useFetch"
-import {MenuItem, TextField, Toolbar, IconButton, AppBar} from "@material-ui/core";
+import {MenuItem, TextField, Toolbar, IconButton, AppBar, Button} from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from "./styles"
 import { useAuth } from "../../services/Auth.js";
@@ -10,14 +10,15 @@ import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 import { useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Pagination from "./../../components/pagination"
+import { ToastContainer } from 'react-toastify';
 
 const EmployeeCrudPage = () =>
 {
   const history = useHistory();
   const classes = useStyles();
   const auth = useAuth();
-
-  const { data: employees } = useFetch("/employee");
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const { data: employees , refetch: refetchEmployees} = useFetch("/employee");
   const [value, setValue] = React.useState("");
   const [field, setFiled] = React.useState("lastName");
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -96,9 +97,10 @@ const EmployeeCrudPage = () =>
             aria-label="menu"
             onClick={undo}
           >
-            
             <UndoRoundedIcon/>
           </IconButton>
+
+          <Button className={classes.add}>Dodaj pracownika</Button>
         </Toolbar>
       </AppBar>
       <div  className={classes.rooot}>
@@ -137,15 +139,16 @@ const EmployeeCrudPage = () =>
           />
         </div>
           <div className={classes.main}>
-          { field && value ? employees.filter(employee => employee[field] === value).map(({_id: id, firstName, lastName, email, phoneNumber, salary, position}) => (
-                <Employee key={email} {...{ id, firstName, lastName, email, phoneNumber, salary, position }} />
+          { field && value ? employees.filter(employee => employee[field] === value).map(({id, firstName, lastName, email, password, phoneNumber, salary, position}) => (
+                <Employee key={email} {...{id, firstName, lastName, email, password, phoneNumber, salary, position, refetchEmployees }} />
             )):
-            currentEmployees.map(({_id: id, firstName, lastName, email, phoneNumber, salary, position}) => (
-                <Employee key={email} {...{ id, firstName, lastName, email, phoneNumber, salary, position }} />
+            currentEmployees.map(({id, firstName, lastName, email, password, phoneNumber, salary, position}) => (
+                <Employee key={email} {...{id, firstName, lastName, email, password, phoneNumber, salary, position, refetchEmployees }} />
             ))
           }
           </div>
         </div>
+        <ToastContainer />
         {( !value) && <Pagination employeesPerPage={postsPerPage} total ={employees && employees.length} paginate={paginate}></Pagination>}
     </div>
   );

@@ -40,6 +40,11 @@ const useStyles = makeStyles(() => ({
     gridGap:"1rem"
   },
 
+  add:{
+    color:"white",
+    marginLeft:"20px"
+  }
+
 }));
 
 export default useStyles;

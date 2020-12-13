@@ -13,6 +13,7 @@ const useFetch = (path, defaultData) => {
       try {
          const token = localStorage.getItem("token");
         const response = await api.get(path, {
+
           headers: { Authorization: `Bearer ${token}` }});
         response && setData(response.data);
       } catch (ex) {

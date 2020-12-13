@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import api from "./Api";
+import {  toast } from 'react-toastify';
 
 const AuthContext = React.createContext();
 
@@ -17,11 +18,13 @@ const AuthProvider = (props) => {
           setAuthorized(true);
         }
       });
+    
     } catch (ex) {
       setAuthorized(false);
       localStorage.removeItem("token");
       history.push("/login");
     }
+    
   };
 
   const login = async (email, password) => {
@@ -39,10 +42,14 @@ const AuthProvider = (props) => {
       if (user && token) {
         localStorage.setItem("token", token);
         setAuthorized(true);
+        toast.success("Zalogowano!");
         history.push("/main");
       } else {
+        toast.error("Przepraszamy, coś nie pykło!");
       }
-    } catch (ex) {}
+    } catch (ex) {
+      toast.error("Przepraszamy, coś nie pykło!");
+    }
   };
 
   const checkIfAdmin = async () => {

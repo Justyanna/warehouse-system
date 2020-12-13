@@ -4,6 +4,7 @@ import useStyles from "./styles";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import {useAuth} from "../../services/Auth.js";
 import { useHistory } from "react-router-dom";
+import { ToastContainer} from 'react-toastify';
 
 const AdminPanel = () => {
   const history = useHistory();
@@ -20,6 +21,7 @@ const AdminPanel = () => {
   
     return(
         <div className={classes.content}>
+          <ToastContainer></ToastContainer>
         <AppBar position="static" className={classes.bar}>
           <Toolbar>
             <IconButton
