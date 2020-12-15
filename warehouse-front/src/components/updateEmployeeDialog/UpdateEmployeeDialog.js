@@ -57,7 +57,7 @@ const UpdateEmployeeDialog = (
             label={phoneNumber}
             variant="filled" 
             value={newPhone}
-            helperText={newPhone.length !== 9 ? "Niepoprawny numer telefonu" : ""}
+            helperText={newPhone && newPhone.length !== 9 ? "Niepoprawny numer telefonu" : ""}
             onChange={handleChange(setNewPhone)} />
 
             <TextField id="filled-basic-s" 
@@ -76,9 +76,12 @@ const UpdateEmployeeDialog = (
                 <Button onClick={handleCancel} color="secondary">
                 Cancel
                 </Button>
-                <Button onClick={handleAccept} color="primary" autoFocus disabled={submitting}>
+                { newFistName || newLastName || newEmail || newPassword || newPhone || newSalary || newPosition ?  <Button onClick={handleAccept} color="primary" autoFocus disabled={submitting}>
                 Confirm
-                </Button>
+                </Button>:
+                <Button onClick={handleAccept} color="primary" autoFocus disabled={true}>
+                Confirm
+                </Button>}
             </DialogActions>
         </Dialog>
    

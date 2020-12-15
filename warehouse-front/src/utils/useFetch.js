@@ -15,6 +15,7 @@ const useFetch = (path, defaultData) => {
         const response = await api.get(path, {
 
           headers: { Authorization: `Bearer ${token}` }});
+       
         response && setData(response.data);
       } catch (ex) {
         

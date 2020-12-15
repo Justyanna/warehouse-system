@@ -78,6 +78,7 @@ const AddEmployeeDialog = (
               value={role}
               onChange={handleChange(setRole)}
               variant="outlined"
+              helperText={firstName && lastName &&email && password && passwordRe && phoneNumber && salary && position && role ? "" : "Wypęłnij wszystkie pola"}
             >
               {roles.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -90,9 +91,12 @@ const AddEmployeeDialog = (
                 <Button onClick={handleCancel} color="secondary">
                 Cancel
                 </Button>
-                <Button onClick={handleAccept} color="primary" autoFocus disabled={submitting}>
+                {firstName && lastName &&email && password && passwordRe && phoneNumber && salary && position && role ?  <Button onClick={handleAccept} color="primary" autoFocus disabled={submitting} >
                 Confirm
-                </Button>
+                </Button> :
+                <Button onClick={handleAccept} color="primary" autoFocus disabled={true} >
+                Confirm
+                </Button>}
             </DialogActions>
         </Dialog>
    

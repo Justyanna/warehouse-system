@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     color: "#fff2e6",
     verticalAlign: "middle",
     width: "100%",
-    fontSize: "2.2vh",
+    fontSize: "1/(100-1.1)vw",
   },
 
   lodaer:{

@@ -18,6 +18,10 @@ const AdminPanel = () => {
     const callEmployeeCrudPane = () => {
       history.push("/employees");
     }
+
+    const callOrdersCrudPane = () => {
+      history.push("/orders");
+    }
   
     return(
         <div className={classes.content}>
@@ -42,20 +46,15 @@ const AdminPanel = () => {
               <Button className={classes.paper} onClick={callEmployeeCrudPane}>ZARZĄDZAJ PRACOWNIKAMI</Button>
             </Grid>
             <Grid item xs={6}>
-              <Button className={classes.paper}>ZARZĄDZAJ KLIENTAMI</Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button className={classes.paper}>ZARZĄDZAJ ZAMÓWIENIAMI</Button>
+              <Button className={classes.paper} onClick={callOrdersCrudPane}>ZARZĄDZAJ ZAMÓWIENIAMI</Button>
             </Grid>
             <Grid item xs={6}>
               <Button className={classes.paper}>ZARZĄDZAJ ASORTYMENTEM</Button>
             </Grid>
             <Grid item xs={6}>
-              <Button className={classes.paper}>USTAL GRAFIKI</Button>
+              <Button className={classes.paper}>HISTORIA ZAMÓWIEŃ</Button>
             </Grid>
-            <Grid item xs={6}>
-              <Button className={classes.paper}>DODAJ KLIENTA</Button>
-            </Grid>
+           
           </Grid>
         </div>
       </div>

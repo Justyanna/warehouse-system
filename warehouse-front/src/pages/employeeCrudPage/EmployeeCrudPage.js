@@ -24,7 +24,7 @@ const EmployeeCrudPage = () =>
   const [submitting, setSubmitting] = React.useState(false);
   const { data: employees , refetch: refetchEmployees} = useFetch("/employee");
   const [value, setValue] = React.useState("");
-  const [field, setFiled] = React.useState("lastName");
+  const [field, setField] = React.useState("lastName");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [postsPerPage] = React.useState(12);
   const [firstName, setFirstName] = React.useState("");
@@ -56,41 +56,56 @@ const EmployeeCrudPage = () =>
       label: "Kierownik zmiany",
     }
   ];
+
   const handleAccept = async() => {
-    setSubmitting(true);
-    const employee = {
-      "firstName":firstName,
-      "lastName":  lastName,
-      "email": email,
-      "password" : password,
-      "phoneNumber":  phoneNumber,
-      "salary" :  salary,
-      "position":  position,
-      "roles" : new Array(role)
+      setSubmitting(true);
+      const employee = {
+        "firstName":firstName,
+        "lastName":  lastName,
+        "email": email,
+        "password" : password,
+        "phoneNumber":  phoneNumber,
+        "salary" :  salary,
+        "position":  position,
+        "roles" : new Array(role)
+      } 
+  
+      if(firstName && lastName &&email && password && passwordRe && phoneNumber && salary && position && role)
+      { try {
+            const token = localStorage.getItem("token");
+            await api.post(`/api/auth/register`, employee, {
+                headers: { Authorization: `Bearer ${token}` }});
+                toast.success("Dodano nowego pracownika!");
+                setFirstName("");
+                setLastName("");
+                setEmail("");
+                setPassword("");
+                setPhoneNumber("");
+                setRole("");
+                setPasswordRe("");
+                setSalary("");
+               
+        
+        } catch (ex) {
+            toast.error("Przepraszamy, coś nie pykło!");
+        }
+      }
+      setSubmitting(false);
+     
+  };
+
+  const handleCancel= () =>{
+    setIsDialogOpen(false);
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+    setPhoneNumber("");
+    setRole("");
+    setPasswordRe("");
+    setSalary("");
   }
-  console.log(employee)
-  if(firstName && lastName &&email && password && passwordRe && phoneNumber && salary && position && role)
-   { try {
-        const token = localStorage.getItem("token");
-        await api.post(`/api/auth/register`, employee, {
-            headers: { Authorization: `Bearer ${token}` }});
-            toast.success("Dodano nowego pracownika!");
     
-    } catch (ex) {
-        toast.error("Przepraszamy, coś nie pykło!");
-    }
-  }
-  
-    setSubmitting(false);
-};
-
-const handleCancel= () =>{
-  setIsDialogOpen(false);
-}
-  
-
-
-
   const fields = [
     {
       value: "firstName",
@@ -121,6 +136,10 @@ const handleCancel= () =>{
   const handleChange = (setter) => (event) => {
     setter(event.target.value);
     };
+
+  const handleChangeFiled = (event) => {
+    setField(event.target.value);
+  };
 
 
   const undo = () => {
@@ -182,7 +201,7 @@ const handleCancel= () =>{
               select
               label="Wybierz pole po którym chcesz wyszukać"
               value={field}
-              onChange={handleChange}
+              onChange={handleChangeFiled}
               variant="outlined"
             >
               {fields.map((option) => (
@@ -225,9 +244,6 @@ const handleCancel= () =>{
         setPassword, passwordRe, setPasswordRe, phoneNumber, setPhoneNumber, salary, 
         setSalary, position, setPosition, roles, role, setRole, isDialogOpen, handleCancel,
          handleAccept, handleChange, submitting, flatPropsRole, classes}}></AddEmployeeDialog>
-
-
-
 
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { LoginPage, MainPage, EmployeeCrudPage, AdminPanel } from "./pages";
+import { LoginPage, MainPage, EmployeeCrudPage, AdminPanel, OrdersCrudPage } from "./pages";
 import { useAuth } from "./services/Auth";
 
 const App = () => {
@@ -22,6 +22,7 @@ const App = () => {
 
   const adminRole = (
     <Switch>
+      <Route exact path ="/orders" component ={OrdersCrudPage} />
       <Route exact path="/employees" component={EmployeeCrudPage} />
       <Route exact path="/main" component={AdminPanel} />
     </Switch>
