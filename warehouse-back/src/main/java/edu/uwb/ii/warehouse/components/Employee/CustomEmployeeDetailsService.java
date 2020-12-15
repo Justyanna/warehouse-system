@@ -59,8 +59,7 @@ public class CustomEmployeeDetailsService implements UserDetailsService {
             roles.add(new SimpleGrantedAuthority(role.getRole()));
         });
 
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
-        return grantedAuthorities;
+        return new ArrayList<>(roles);
     }
 
     private UserDetails buildUserForAuthentication(EmployeeModel employeeModel, List<GrantedAuthority> authorities) {

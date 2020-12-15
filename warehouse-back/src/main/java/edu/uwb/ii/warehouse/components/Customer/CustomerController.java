@@ -16,22 +16,26 @@ public class CustomerController {
 
     public CustomerController(CustomerRepository customerRepository) {this.customerRepository = customerRepository;}
 
+    @CrossOrigin
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public CustomerModel add(@RequestBody CustomerModel customer) {
         return customerRepository.save(customer);
     }
 
+    @CrossOrigin
     @GetMapping
     public List<CustomerModel> getAll() {
         return customerRepository.findAll();
     }
 
+    @CrossOrigin
     @GetMapping(value = "/{id}")
     public CustomerModel getOne(@PathVariable String id) {
         return customerRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
     }
 
+    @CrossOrigin
     @PutMapping(value = "/{id}")
     public CustomerModel update(@PathVariable String id, @RequestBody CustomerModel updatedCustomer) {
         CustomerModel customer = customerRepository.findById(id).orElseThrow(() -> new NoSuchElementException());

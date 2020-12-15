@@ -14,7 +14,7 @@ public class EmployeeController {
     @Autowired
     private final EmployeeRepository employeeRepository;
     @Autowired
-    private CustomEmployeeDetailsService employeeDetailsService;
+    private final CustomEmployeeDetailsService employeeDetailsService;
 
     public EmployeeController(EmployeeRepository employeeRepository,
                               CustomEmployeeDetailsService employeeDetailsService) {this.employeeRepository = employeeRepository;
@@ -30,19 +30,18 @@ public class EmployeeController {
     @CrossOrigin
     @GetMapping
     public List<EmployeeModel> getAll() {
-        List<EmployeeModel> employeeModels = employeeRepository.findAll();
-        return employeeModels;
+        return employeeRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
     public EmployeeModel getOne(@PathVariable String id) {
-        return employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        return employeeRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     @CrossOrigin
     @PutMapping(value = "/{id}")
     public EmployeeModel update(@PathVariable String id, @RequestBody EmployeeModel updatedEmployee) {
-        EmployeeModel employee = employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        EmployeeModel employee = employeeRepository.findById(id).orElseThrow(NoSuchElementException::new);
         employee.setFirstName(updatedEmployee.getFirstName());
         employee.setEmail(updatedEmployee.getEmail());
         employee.setLastName(updatedEmployee.getLastName());
@@ -57,7 +56,7 @@ public class EmployeeController {
     @CrossOrigin
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable String id) {
-        EmployeeModel employee = employeeRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        EmployeeModel employee = employeeRepository.findById(id).orElseThrow(NoSuchElementException::new);
         employeeRepository.delete(employee);
     }
 }

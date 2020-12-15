@@ -68,7 +68,6 @@ public class AuthController {
 
     @PostMapping("/verify")
     public ResponseEntity verify(@RequestBody String token) {
-        System.out.println();
         if (tokenEmailMap.keySet().contains(token)) {
             return new ResponseEntity(HttpStatus.OK);
         } else {

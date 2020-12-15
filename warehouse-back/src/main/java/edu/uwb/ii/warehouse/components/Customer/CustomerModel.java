@@ -13,12 +13,16 @@ public class CustomerModel {
     private String email;
     private String phoneNumber;
 
-    public CustomerModel(String id, String customerName, String adress, String email, String phoneNumber) {
+    public CustomerModel(String id, String customerName, String address, String email, String phoneNumber) {
         this.id = id;
         this.customerName = customerName;
-        this.address = adress;
+        this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getCustomerName() {
