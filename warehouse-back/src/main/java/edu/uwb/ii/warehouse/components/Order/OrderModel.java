@@ -23,14 +23,16 @@ public class OrderModel {
     private Map<String, Integer> map;
     private List<TaskModel> tasks;
     private String status;
+    private String delivery;
 
     public OrderModel(CustomerModel customer, List<ItemModel> items, Map<String, Integer> map, List<TaskModel> tasks,
-                      String status) {
+                      String status, String delivery) {
         this.customer = customer;
         this.items = items;
         this.map = map;
         this.tasks = tasks;
         this.status = status;
+        this.delivery = delivery;
         double sum = 0;
         for (ItemModel item : items) {
             sum += item.getPrice() * this.map.get(item.getId());
@@ -92,5 +94,13 @@ public class OrderModel {
 
     public void setMap(Map<String, Integer> map) {
         this.map = map;
+    }
+
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
     }
 }

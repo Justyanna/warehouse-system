@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/orderHistory")
+@RequestMapping("/ordersHistory")
 public class OrderHistoryController {
 
     @Autowired
@@ -18,10 +18,17 @@ public class OrderHistoryController {
         this.orderHistoryRepository = orderHistoryRepository;
     }
 
+    @CrossOrigin
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public OrderHistoryModel add(@RequestBody OrderHistoryModel orderHistory) {
         return orderHistoryRepository.save(orderHistory);
+    }
+
+    @CrossOrigin
+    @DeleteMapping
+    public void deleteAll() {
+        orderHistoryRepository.deleteAll();
     }
 
     @CrossOrigin
@@ -30,6 +37,7 @@ public class OrderHistoryController {
         return orderHistoryRepository.findAll();
     }
 
+    @CrossOrigin
     @GetMapping(value = "/{id}")
     public OrderHistoryModel getOne(@PathVariable String id) {
         return orderHistoryRepository.findById(id).orElseThrow(NoSuchElementException::new);

@@ -62,7 +62,8 @@ public class OrderController {
         }
 
         OrderModel order =
-                new OrderModel(customer, itemModels, orderRequest.getItemMap(), tasks, orderRequest.getStatus());
+                new OrderModel(customer, itemModels, orderRequest.getItemMap(), tasks, orderRequest.getStatus(),
+                               orderRequest.getDelivery());
         return orderRepository.save(order);
     }
 
@@ -86,6 +87,7 @@ public class OrderController {
         order.setTasks(updatedOrder.getTasks());
         order.setItems(updatedOrder.getItems());
         order.setMap(updatedOrder.getMap());
+        order.setDelivery(updatedOrder.getDelivery());
         double sum = 0;
         for (ItemModel item : order.getItems()) {
             sum += item.getPrice() * order.getMap().get(item.getId());
@@ -98,6 +100,7 @@ public class OrderController {
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable String id) {
         OrderModel order = orderRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        order.setStatus("archived");
         orderHistoryRepository.save(new OrderHistoryModel(order, new Date(System.currentTimeMillis()).toString()));
         orderRepository.delete(order);
     }

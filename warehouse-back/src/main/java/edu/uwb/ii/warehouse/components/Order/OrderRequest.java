@@ -9,13 +9,16 @@ public class OrderRequest {
     private Map<String, Integer> itemMap;
     private List<String> tasks;
     private String status;
+    private String delivery;
 
-    OrderRequest(String customer, Double totalPrice, Map<String, Integer> itemMap, List<String> tasks, String status) {
+    OrderRequest(String customer, Double totalPrice, Map<String, Integer> itemMap, List<String> tasks, String status,
+                 String delivery) {
         this.customer = customer;
         this.totalPrice = totalPrice;
         this.itemMap = itemMap;
         this.tasks = tasks;
         this.status = status;
+        this.delivery = delivery;
     }
 
     String getCustomer() {
@@ -36,5 +39,9 @@ public class OrderRequest {
 
     String getStatus() {
         return status;
+    }
+
+    String getDelivery() {
+        return delivery;
     }
 }

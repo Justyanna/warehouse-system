@@ -2,15 +2,13 @@ package edu.uwb.ii.warehouse.components.OrdersHistory;
 
 import edu.uwb.ii.warehouse.components.Order.OrderModel;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "customers")
+@Document(collection = "ordersHistory")
 public class OrderHistoryModel {
 
     @Id
     private String id;
-    @DBRef
     private OrderModel order;
     private String timestamp;
 
