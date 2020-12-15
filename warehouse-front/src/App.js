@@ -1,6 +1,14 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { LoginPage, MainPage, EmployeeCrudPage, AdminPanel, OrdersCrudPage, OrderHistory } from './pages';
+import {
+	LoginPage,
+	MainPage,
+	EmployeeCrudPage,
+	AdminPanel,
+	OrdersCrudPage,
+	OrderHistory,
+	InventoryPage
+} from './pages';
 import { useAuth } from './services/Auth';
 
 const App = () => {
@@ -28,6 +36,7 @@ const App = () => {
 
 	const adminRole = (
 		<Switch>
+			<Route exact path="/inventory" component={InventoryPage} />
 			<Route exact path="/ordersHistory" component={OrderHistory} />
 			<Route exact path="/orders" component={OrdersCrudPage} />
 			<Route exact path="/employees" component={EmployeeCrudPage} />

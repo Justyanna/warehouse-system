@@ -11,7 +11,18 @@ import api from './../../services/Api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Employee = ({ id, firstName, lastName, email, password, phoneNumber, salary, position, refetchEmployees }) => {
+const Employee = ({
+	id,
+	firstName,
+	lastName,
+	email,
+	password,
+	phoneNumber,
+	salary,
+	position,
+	roles,
+	refetchEmployees
+}) => {
 	const classes = useStyles();
 	const [ isConfirmationDialogOpen, setIsConfirmationDialogOpen ] = React.useState(false);
 	const [ isUpdateDialogOpen, setIsUpdateDialogOpen ] = React.useState(false);
@@ -99,6 +110,13 @@ const Employee = ({ id, firstName, lastName, email, password, phoneNumber, salar
 						Płaca: {salary}
 						<br />
 						Stanowisko: {position}
+						<br />
+						Role :{' '}
+						{roles.map((role) => {
+							{
+								return role.role + ' ';
+							}
+						})}
 					</div>
 				</CardContent>
 				<CardActions disableSpacing>

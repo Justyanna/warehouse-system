@@ -85,19 +85,19 @@ const OrdersCrudPage = () => {
 					{value ? (
 						orders
 							.filter((order) => order.id === value)
-							.map(({ id, customer, totalPrice, items, tasks, status }) => (
+							.map(({ id, customer, totalPrice, items, delivery, tasks, status }) => (
 								<Order
 									boolean={true}
 									key={id}
-									{...{ id, customer, totalPrice, items, tasks, status }}
+									{...{ id, customer, totalPrice, items, delivery, tasks, status }}
 								/>
 							))
 					) : (
-						currentOrders.map(({ id, customer, totalPrice, items, map, tasks, status }) => (
+						currentOrders.map(({ id, customer, totalPrice, items, delivery, map, tasks, status }) => (
 							<Order
 								boolean={true}
 								key={id}
-								{...{ id, customer, totalPrice, map, items, tasks, status, refetchOrders }}
+								{...{ id, customer, totalPrice, map, items, delivery, tasks, status, refetchOrders }}
 							/>
 						))
 					)}

@@ -5,8 +5,9 @@ import EmployeeCrudDialog from './../EmployeeCrudDialog';
 import api from './../../services/Api';
 import { toast } from 'react-toastify';
 import UpdateOrderDialog from './../updateOrderDialog';
+import Switch from '@material-ui/core/Switch';
 
-const Order = ({ id, customer, totalPrice, items, map, tasks, status, refetchOrders, boolean }) => {
+const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, refetchOrders, boolean }) => {
 	const [ submitting, setSubmitting ] = React.useState(false);
 	const [ isConfirmationDialogOpen, setIsConfirmationDialogOpen ] = React.useState(false);
 	const [ isUpdateDialogOpen, setIsUpdateDialogOpen ] = React.useState(false);
@@ -16,6 +17,14 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, refetchOrd
 	const [ price, setPrice ] = React.useState('');
 	const [ newstatus, setNewStatus ] = React.useState('');
 	const [ newname, setName ] = React.useState('');
+
+	const [ state, setState ] = React.useState({
+		checkedA: false
+	});
+
+	const handleChangeSwitch = (event) => {
+		setState({ ...state, [event.target.name]: event.target.checked });
+	};
 
 	const handleDelete = async () => {
 		setSubmitting(true);
@@ -79,57 +88,83 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, refetchOrd
 	const classes = useStyles();
 	return (
 		<div>
-			<Card className={classes.rooot}>
-				<CardHeader
-					title={id}
-					subheader={
-						<div>
-							{customer.customerName}
-							<br />
-							{customer.address}
-							<br />
-							{customer.email}
-							<br />
-							{customer.phoneNumber}
-						</div>
-					}
-				/>
-				<CardContent>
-					<div>
-						{/* {items.map(({id, name, price, description, producer}) => {<div>{name}<br></br></div>})}  */}
-						Kwota do zapłaty: {totalPrice}$<br />
-						Staus: {status} <br />
-					</div>
-				</CardContent>
-				<CardActions disableSpacing>
-					{boolean && (
-						<div className={classes.buttonBox}>
-							<Button
-								className={classes.buttonUpdate}
-								variant="contained"
-								onClick={() => setIsUpdateDialogOpen(true)}
-							>
-								Popraw
-							</Button>
-							<Button
-								className={classes.buttonDelete}
-								color="secondary"
-								onClick={() => setIsConfirmationDialogOpen(true)}
-								variant="contained"
-							>
-								Usuń
-							</Button>
-						</div>
-					)}
-				</CardActions>
-			</Card>
+			<div>
+				{state.checkedA ? (
+					<Card>
+						<Switch
+							checked={state.checkedA}
+							onChange={handleChangeSwitch}
+							name="checkedA"
+							inputProps={{ 'aria-label': 'secondary checkbox' }}
+						/>
+						<CardContent>
+							Kwota do zapłaty: {totalPrice}$<br />
+							Staus: {status} <br />
+							Delivery: {delivery} <br />
+							Zamówienie: <br />
+							{items.map((item) => {
+								return (
+									<div>
+										{item.name} x {map[item.id]} | cena: {map[item.id] * item.price} $
+										<br />
+									</div>
+								);
+							})}
+						</CardContent>
+					</Card>
+				) : (
+					<Card className={classes.rooot}>
+						<Switch
+							checked={state.checkedA}
+							onChange={handleChangeSwitch}
+							name="checkedA"
+							inputProps={{ 'aria-label': 'secondary checkbox' }}
+						/>
+						<CardHeader
+							title={id}
+							subheader={
+								<div>
+									{customer.customerName}
+									<br />
+									{customer.address}
+									<br />
+									{customer.email}
+									<br />
+									{customer.phoneNumber}
+								</div>
+							}
+						/>
+
+						<CardActions disableSpacing>
+							{boolean && (
+								<div className={classes.buttonBox}>
+									<Button
+										className={classes.buttonUpdate}
+										variant="contained"
+										onClick={() => setIsUpdateDialogOpen(true)}
+									>
+										Popraw
+									</Button>
+									<Button
+										className={classes.buttonDelete}
+										color="secondary"
+										onClick={() => setIsConfirmationDialogOpen(true)}
+										variant="contained"
+									>
+										Usuń
+									</Button>
+								</div>
+							)}
+						</CardActions>
+					</Card>
+				)}
+			</div>
 			<EmployeeCrudDialog
 				submitting={submitting}
 				open={isConfirmationDialogOpen}
 				handleAccept={handleDelete}
 				handleCancel={() => setIsConfirmationDialogOpen(false)}
 			/>
-
 			<UpdateOrderDialog
 				{...{
 					customer,
