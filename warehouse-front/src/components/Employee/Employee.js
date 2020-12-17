@@ -111,11 +111,9 @@ const Employee = ({
 						<br />
 						Stanowisko: {position}
 						<br />
-						Role :{' '}
+						Role : {' '}
 						{roles.map((role) => {
-							{
-								return role.role + ' ';
-							}
+							return role.role + ' ';
 						})}
 					</div>
 				</CardContent>

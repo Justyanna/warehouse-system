@@ -24,8 +24,6 @@ const OrderHistory = () => {
 	const currentOrders = orders && orders.slice(indexOfFirstEmployees, indexOfLastEmployees);
 	const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-	const [ , setIsDialogOpen ] = React.useState(false);
-
 	const logout = async () => {
 		await auth.logout();
 	};
@@ -40,10 +38,6 @@ const OrderHistory = () => {
 
 	const undo = () => {
 		history.push('/main');
-	};
-
-	const openAddDialog = () => {
-		setIsDialogOpen(true);
 	};
 
 	if (!Boolean(orders)) {

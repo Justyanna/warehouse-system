@@ -23,8 +23,12 @@ const AdminPanel = () => {
 		history.push('/orders');
 	};
 
-	const callOrdersHistoryCrudPane = () => {
+	const callOrdersHistoryCrudPage = () => {
 		history.push('/ordersHistory');
+	};
+
+	const callInventoryPage = () => {
+		history.push('/inventory');
 	};
 	return (
 		<div className={classes.content}>
@@ -56,10 +60,12 @@ const AdminPanel = () => {
 						</Button>
 					</Grid>
 					<Grid item xs={6}>
-						<Button className={classes.paper}>ZARZĄDZAJ ASORTYMENTEM</Button>
+						<Button className={classes.paper} onClick={callInventoryPage}>
+							ZARZĄDZAJ ASORTYMENTEM
+						</Button>
 					</Grid>
 					<Grid item xs={6}>
-						<Button className={classes.paper} onClick={callOrdersHistoryCrudPane}>
+						<Button className={classes.paper} onClick={callOrdersHistoryCrudPage}>
 							HISTORIA ZAMÓWIEŃ
 						</Button>
 					</Grid>

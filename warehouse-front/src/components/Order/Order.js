@@ -90,7 +90,7 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 		<div>
 			<div>
 				{state.checkedA ? (
-					<Card>
+					<Card key={id} className={classes.rooot}>
 						<Switch
 							checked={state.checkedA}
 							onChange={handleChangeSwitch}
@@ -100,7 +100,7 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 						<CardContent>
 							Kwota do zapłaty: {totalPrice}$<br />
 							Staus: {status} <br />
-							Delivery: {delivery} <br />
+							Dostawa: {delivery} <br />
 							Zamówienie: <br />
 							{items.map((item) => {
 								return (
@@ -113,7 +113,7 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 						</CardContent>
 					</Card>
 				) : (
-					<Card className={classes.rooot}>
+					<Card key={customer.email} className={classes.rooot}>
 						<Switch
 							checked={state.checkedA}
 							onChange={handleChangeSwitch}
