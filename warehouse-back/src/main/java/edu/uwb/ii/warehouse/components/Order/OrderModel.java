@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Document(collection = "orders")
 public class OrderModel {
@@ -38,6 +39,23 @@ public class OrderModel {
             sum += item.getPrice() * this.map.get(item.getId());
         }
         this.totalPrice = sum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrderModel that = (OrderModel) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, customer, totalPrice, items, map, tasks, status, delivery);
     }
 
     public String getId() {
