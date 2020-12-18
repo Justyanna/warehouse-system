@@ -15,25 +15,18 @@ const useStyles = makeStyles(() => ({
 		backgroundColor: '#1a1a1a'
 	},
 
-	paper: {
-		padding: '3vw',
-		backgroundColor: '#262626',
-		height: '100px',
-		textAlign: 'center',
-
-		fontFamily: 'Lato',
-		color: '#fff2e6',
-		verticalAlign: 'middle',
-		width: '100%',
-		fontSize: '1/(100-1.1)vw'
-	},
-
 	lodaer: {
 		margin: 'auto'
 	},
 
-	hello: {
-		marginLeft: '20px'
+	root: {
+		margin: 'auto'
+	},
+
+	paper: {
+		width: 400,
+		height: 430,
+		overflow: 'auto'
 	}
 }));
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button, Toolbar, IconButton, AppBar } from '@material-ui/core';
+import { Grid, Button, Toolbar, IconButton, AppBar, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useAuth } from '../../services/Auth.js';
@@ -30,6 +30,7 @@ const AdminPanel = () => {
 	const callInventoryPage = () => {
 		history.push('/inventory');
 	};
+
 	return (
 		<div className={classes.content}>
 			<ToastContainer />
@@ -44,6 +45,7 @@ const AdminPanel = () => {
 					>
 						<ExitToAppIcon fontSize="large" />
 					</IconButton>
+					<Typography className={classes.hello}>Witaj, adminie</Typography>
 				</Toolbar>
 			</AppBar>
 

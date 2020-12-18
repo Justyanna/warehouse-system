@@ -7,8 +7,11 @@ import {
 	AdminPanel,
 	OrdersCrudPage,
 	OrderHistory,
-	InventoryPage
+	InventoryPage,
+	ManagerPage,
+	AddOrders
 } from './pages';
+import ManagerPanel from './pages/managerPanel';
 import { useAuth } from './services/Auth';
 
 const App = () => {
@@ -27,10 +30,50 @@ const App = () => {
 		[ auth ]
 	);
 
+	React.useEffect(
+		() => {
+			auth.authorized && !auth.isManager && auth.checkIfManager();
+		},
+		[ auth ]
+	);
+
+	React.useEffect(
+		() => {
+			auth.authorized && !auth.isPacker && auth.checkIfPacker();
+		},
+		[ auth ]
+	);
+
+	React.useEffect(
+		() => {
+			auth.authorized && !auth.isSeeker && auth.checkIfSeeker();
+		},
+		[ auth ]
+	);
+
 	const authorizedRoutes = (
 		<Switch>
 			<Redirect from="/login" to="/main" />
 			<Route exact path="/main" component={MainPage} />
+		</Switch>
+	);
+
+	const managerRole = (
+		<Switch>
+			<Route exact path="/main" component={ManagerPanel} />
+			<Route exact path="/add" component={AddOrders} />
+		</Switch>
+	);
+
+	const packerRole = (
+		<Switch>
+			<Route exact path="/main" />
+		</Switch>
+	);
+
+	const seekerRole = (
+		<Switch>
+			<Route exact path="/main" />
 		</Switch>
 	);
 
@@ -50,7 +93,11 @@ const App = () => {
 		</Switch>
 	);
 
-	return auth.authorized ? (auth.isAdmin ? adminRole : authorizedRoutes) : unauthorizedRoutes;
+	return auth.authorized
+		? auth.isAdmin
+			? adminRole
+			: auth.isManager ? managerRole : auth.isPacker ? packerRole : auth.isSeeker ? seekerRole : authorizedRoutes
+		: unauthorizedRoutes;
 };
 
 export default App;

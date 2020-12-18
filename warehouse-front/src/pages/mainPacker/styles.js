@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
 		margin: '10vw',
 		width: '80vw'
 	},
+
 	bar: {
 		bottom: '0',
 		backgroundColor: '#1a1a1a'
@@ -25,15 +26,11 @@ const useStyles = makeStyles(() => ({
 		color: '#fff2e6',
 		verticalAlign: 'middle',
 		width: '100%',
-		fontSize: '1/(100-1.1)vw'
+		fontSize: '2.2vh'
 	},
 
 	lodaer: {
 		margin: 'auto'
-	},
-
-	hello: {
-		marginLeft: '20px'
 	}
 }));
 

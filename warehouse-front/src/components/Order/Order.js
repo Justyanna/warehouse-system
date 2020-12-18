@@ -87,10 +87,10 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 
 	const classes = useStyles();
 	return (
-		<div>
-			<div>
+		<div key="order-div">
+			<div key="card-div">
 				{state.checkedA ? (
-					<Card key={id} className={classes.rooot}>
+					<Card className={classes.rooot} key="card-swtich">
 						<Switch
 							checked={state.checkedA}
 							onChange={handleChangeSwitch}
@@ -104,7 +104,7 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 							Zamówienie: <br />
 							{items.map((item) => {
 								return (
-									<div>
+									<div key={item.id}>
 										{item.name} x {map[item.id]} | cena: {map[item.id] * item.price} $
 										<br />
 									</div>
@@ -113,7 +113,7 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 						</CardContent>
 					</Card>
 				) : (
-					<Card key={customer.email} className={classes.rooot}>
+					<Card className={classes.rooot} key="card-normal">
 						<Switch
 							checked={state.checkedA}
 							onChange={handleChangeSwitch}
@@ -139,6 +139,7 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 							{boolean && (
 								<div className={classes.buttonBox}>
 									<Button
+										key="button-update"
 										className={classes.buttonUpdate}
 										variant="contained"
 										onClick={() => setIsUpdateDialogOpen(true)}
@@ -146,6 +147,7 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 										Popraw
 									</Button>
 									<Button
+										key="button-delete"
 										className={classes.buttonDelete}
 										color="secondary"
 										onClick={() => setIsConfirmationDialogOpen(true)}
@@ -160,12 +162,14 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 				)}
 			</div>
 			<EmployeeCrudDialog
+				key="Confirm dialog"
 				submitting={submitting}
 				open={isConfirmationDialogOpen}
 				handleAccept={handleDelete}
 				handleCancel={() => setIsConfirmationDialogOpen(false)}
 			/>
 			<UpdateOrderDialog
+				key="Update dialog"
 				{...{
 					customer,
 					totalPrice,
