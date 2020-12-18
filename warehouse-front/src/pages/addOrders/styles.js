@@ -7,25 +7,26 @@ const useStyles = makeStyles(() => ({
 		backgroundColor: '#515151'
 	},
 	box: {
-		margin: '10vw',
-		width: '80vw'
+		margin: '5vw'
 	},
+
 	bar: {
 		bottom: '0',
 		backgroundColor: '#1a1a1a'
 	},
 
-	lodaer: {
-		margin: 'auto'
+	save: {
+		backgroundColor: 'white',
+		marginTop: '100px'
 	},
 
-	root: {
-		margin: 'auto'
+	button: {
+		backgroundColor: 'white'
 	},
 
-	paper: {
-		width: 400,
-		height: 430,
+	list: {
+		width: ' 350px',
+		height: '430px',
 		overflow: 'auto'
 	}
 }));
