@@ -46,7 +46,7 @@ public class AuthController {
             Map<Object, Object> model = new HashMap<>();
             model.put("user", username);
             model.put("token", token);
-            tokenEmailMap.put(token+"=", username);
+            tokenEmailMap.put(token + "=", username);
             return ok(model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid email/password supplied");
@@ -85,6 +85,45 @@ public class AuthController {
                 if (role.getRole().equals(RoleEnum.ADMIN.toString())) {
                     return new ResponseEntity(HttpStatus.OK);
                 }
+            }
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/isManager")
+    public ResponseEntity isManager(@RequestBody String token) {
+        String email = tokenEmailMap.get(token);
+        EmployeeModel userExists = employeeDetailsService.findUserByEmail(email);
+        if (userExists != null) {
+            Set<RoleModel> roles = userExists.getRoles();
+            for (RoleModel role : roles) {
+                if (role.getRole().equals(RoleEnum.MANAGER.toString())) {
+                    return new ResponseEntity(HttpStatus.OK);
+                }
+            }
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/isPacker")
+    public ResponseEntity isPacker(@RequestBody String token) {
+        String email = tokenEmailMap.get(token);
+        EmployeeModel userExists = employeeDetailsService.findUserByEmail(email);
+        if (userExists != null) {
+            if (userExists.getPosition() == "packer" || userExists.getPosition() == "paccker") {
+                return new ResponseEntity(HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/isSeeker")
+    public ResponseEntity isSeeker(@RequestBody String token) {
+        String email = tokenEmailMap.get(token);
+        EmployeeModel userExists = employeeDetailsService.findUserByEmail(email);
+        if (userExists != null) {
+            if (userExists.getPosition() == "seeker") {
+                return new ResponseEntity(HttpStatus.OK);
             }
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);

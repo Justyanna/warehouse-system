@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -25,6 +26,7 @@ public class OrderModel {
     private List<TaskModel> tasks;
     private String status;
     private String delivery;
+    private String timestamp;
 
     public OrderModel(CustomerModel customer, List<ItemModel> items, Map<String, Integer> map, List<TaskModel> tasks,
                       String status, String delivery) {
@@ -38,7 +40,13 @@ public class OrderModel {
         for (ItemModel item : items) {
             sum += item.getPrice() * this.map.get(item.getId());
         }
+        this.timestamp = new Date(System.currentTimeMillis()).toString();
         this.totalPrice = sum;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, customer, totalPrice, items, map, tasks, status, delivery);
     }
 
     @Override
@@ -51,11 +59,6 @@ public class OrderModel {
         }
         OrderModel that = (OrderModel) o;
         return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, customer, totalPrice, items, map, tasks, status, delivery);
     }
 
     public String getId() {

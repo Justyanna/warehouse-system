@@ -1,7 +1,9 @@
 package edu.uwb.ii.warehouse.components.Task;
 
 import edu.uwb.ii.warehouse.components.Employee.EmployeeModel;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "tasks")
 public class TaskModel {
 
     private EmployeeModel packer;

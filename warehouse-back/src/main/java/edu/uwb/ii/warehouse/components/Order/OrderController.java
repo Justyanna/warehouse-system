@@ -9,6 +9,7 @@ import edu.uwb.ii.warehouse.components.OrdersHistory.OrderHistoryRepository;
 import edu.uwb.ii.warehouse.components.Task.TaskModel;
 import edu.uwb.ii.warehouse.components.Task.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,7 +71,7 @@ public class OrderController {
     @CrossOrigin
     @GetMapping
     public List<OrderModel> getAll() {
-        return orderRepository.findAll();
+        return orderRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @GetMapping(value = "/{id}")
