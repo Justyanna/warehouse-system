@@ -16,6 +16,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Divider from '@material-ui/core/Divider';
 import api from './../../services/Api';
+import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
+import { toast } from 'react-toastify';
 
 const AddOrders = () => {
 	const history = useHistory();
@@ -26,10 +28,14 @@ const AddOrders = () => {
 	const { data: ordersForSeek, refetch: refetchOrdersForSeek } = useFetch('/seeks');
 	const [ left, setLeft ] = React.useState(null);
 	const [ right, setRight ] = React.useState(null);
-	const intersectionList = orders && ordersForSeek && orders.filter((order) => !ordersForSeek.includes(order));
+	const orderModels =
+		ordersForSeek &&
+		ordersForSeek.map(({ orderModel }) => {
+			return orderModel.id;
+		});
+	const intersectionList = orders && orderModels && orders.filter((order) => orderModels.indexOf(order.id) === -1);
 
 	const leftChecked = intersection(checked, left);
-	const rightChecked = intersection(checked, right);
 
 	const logout = async () => {
 		await auth.logout();
@@ -85,21 +91,9 @@ const AddOrders = () => {
 		setChecked(not(checked, leftChecked));
 	};
 
-	const handleCheckedLeft = () => {
-		setLeft(left.concat(rightChecked));
-		setRight(not(right, rightChecked));
-		setChecked(not(checked, rightChecked));
-	};
-
-	const handleAllLeft = () => {
-		setLeft(left.concat(right));
-		setRight([]);
-	};
-
 	const handleSave = async () => {
-		console.log(ordersForSeek);
 		const orderId = right[right.length - 1];
-		const order = orders.filter((order) => order.id === orderId && !ordersForSeek.includes(order))[0];
+		const order = orders.filter((order) => order.id === orderId && !orderModels.includes(order))[0];
 		const token = localStorage.getItem('token');
 		try {
 			if (order) {
@@ -107,10 +101,11 @@ const AddOrders = () => {
 					headers: { Authorization: `Bearer ${token}` }
 				});
 			}
-
+			console.log(left);
 			refetchOrders();
 			refetchOrdersForSeek();
 		} catch (ex) {}
+		toast.error('Przepraszamy, coś nie pykło!');
 	};
 
 	const customListRight = (title, items) => (
@@ -178,10 +173,11 @@ const AddOrders = () => {
 		return <CircularProgress />;
 	} else {
 		if (left === null) {
-			var ids = new Array();
-			intersectionList.map(({ id }) => ids.push(id));
-			var ids2 = new Array();
-			ordersForSeek.map(({ orderModel }) => ids2.push(orderModel.id));
+			var ids = [];
+			var ids2 = [];
+
+			ordersForSeek && ordersForSeek.map(({ orderModel }) => ids2.push(orderModel.id));
+			intersectionList && intersectionList.map(({ id }) => ids.push(id));
 			setLeft(ids);
 			setRight(ids2);
 			refetchOrders();
@@ -208,6 +204,7 @@ const AddOrders = () => {
 						aria-label="menu"
 						onClick={undo}
 					/>
+					<UndoRoundedIcon />
 				</Toolbar>
 			</AppBar>
 
@@ -217,7 +214,6 @@ const AddOrders = () => {
 					<Grid item>
 						<Grid container direction="column" alignItems="center">
 							<Button
-								className={classes.button}
 								variant="outlined"
 								size="small"
 								className={classes.button}
@@ -228,7 +224,6 @@ const AddOrders = () => {
 								≫
 							</Button>
 							<Button
-								className={classes.button}
 								variant="outlined"
 								size="small"
 								className={classes.button}
@@ -247,6 +242,7 @@ const AddOrders = () => {
 
 					<Grid item>{customListRight('Zamówienia do realizacji', right)}</Grid>
 				</Grid>
+				<ToastContainer />
 			</div>
 		</div>
 	);

@@ -8,7 +8,6 @@ import {
 	OrdersCrudPage,
 	OrderHistory,
 	InventoryPage,
-	ManagerPage,
 	AddOrders
 } from './pages';
 import ManagerPanel from './pages/managerPanel';

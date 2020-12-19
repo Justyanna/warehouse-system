@@ -34,7 +34,7 @@ const useStyles = makeStyles(() => ({
 	main: {
 		paddingLeft: '30px',
 		paddingRight: '30px',
-		marginTop: '5vh',
+		marginTop: '4vh',
 		display: 'grid',
 		gridTemplateColumns: 'repeat(auto-fit, minmax(20.5rem, 1fr))',
 		gridGap: '1.2rem'
