@@ -18,6 +18,10 @@ const ManagerPanel = () => {
 		history.push('/add');
 	};
 
+	const callOrderHistory = async () => {
+		history.push('/ordersHistory');
+	};
+
 	return (
 		<div className={classes.content}>
 			<AppBar position="static" className={classes.bar}>
@@ -42,7 +46,9 @@ const ManagerPanel = () => {
 						</Button>
 					</Grid>
 					<Grid item xs={12}>
-						<Button className={classes.paper}>ZAMÓWIENIA</Button>
+						<Button className={classes.paper} onClick={callOrderHistory}>
+							ZAMÓWIENIA
+						</Button>
 					</Grid>
 					<Grid item xs={12}>
 						<Button className={classes.paper}>ZADANIA</Button>

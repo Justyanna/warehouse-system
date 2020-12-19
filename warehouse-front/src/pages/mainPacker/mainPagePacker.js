@@ -30,23 +30,11 @@ const MainPage = () => {
 
 			<div className={classes.box}>
 				<Grid container spacing={3}>
-					<Grid item xs={6}>
+					<Grid item xs={12}>
 						<Button className={classes.paper}>ZAMÓWIENIA</Button>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={12}>
 						<Button className={classes.paper}>ZADANIA</Button>
-					</Grid>
-					<Grid item xs={6}>
-						<Button className={classes.paper}>POZYCJE</Button>
-					</Grid>
-					<Grid item xs={6}>
-						<Button className={classes.paper}>WERYFIKACJA</Button>
-					</Grid>
-					<Grid item xs={6}>
-						<Button className={classes.paper}>WYPŁATA</Button>
-					</Grid>
-					<Grid item xs={6}>
-						<Button className={classes.paper}>GRAFIK</Button>
 					</Grid>
 				</Grid>
 			</div>

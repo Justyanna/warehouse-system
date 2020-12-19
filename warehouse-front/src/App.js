@@ -59,6 +59,7 @@ const App = () => {
 
 	const managerRole = (
 		<Switch>
+			<Route exact path="/ordersHistory" component={OrderHistory} />
 			<Route exact path="/main" component={ManagerPanel} />
 			<Route exact path="/add" component={AddOrders} />
 		</Switch>
