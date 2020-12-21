@@ -1,5 +1,6 @@
 package edu.uwb.ii.warehouse.components.Order;
 
+import com.mongodb.lang.Nullable;
 import edu.uwb.ii.warehouse.components.Customer.CustomerModel;
 import edu.uwb.ii.warehouse.components.Item.ItemModel;
 import edu.uwb.ii.warehouse.components.Task.TaskModel;
@@ -23,12 +24,14 @@ public class OrderModel {
     @DBRef
     private List<ItemModel> items;
     private Map<String, Integer> map;
+    @Nullable
     private List<TaskModel> tasks;
     private String status;
     private String delivery;
     private String timestamp;
 
-    public OrderModel(CustomerModel customer, List<ItemModel> items, Map<String, Integer> map, List<TaskModel> tasks,
+
+    public OrderModel(CustomerModel customer, List<ItemModel> items, Map<String, Integer> map, @Nullable List<TaskModel> tasks,
                       String status, String delivery) {
         this.customer = customer;
         this.items = items;
@@ -43,6 +46,7 @@ public class OrderModel {
         this.timestamp = new Date(System.currentTimeMillis()).toString();
         this.totalPrice = sum;
     }
+
 
     @Override
     public int hashCode() {

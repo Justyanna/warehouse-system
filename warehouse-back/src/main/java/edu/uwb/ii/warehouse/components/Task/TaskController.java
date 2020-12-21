@@ -40,8 +40,7 @@ public class TaskController {
     public TaskModel update(@PathVariable String id, @RequestBody TaskModel updatedTask) {
         TaskModel task = taskRepository.findById(id).orElseThrow(NoSuchElementException::new);
         task.setDate(updatedTask.getDate());
-        task.setPacker(updatedTask.getPacker());
-        task.setSeeker(updatedTask.getSeeker());
+        task.setEmployeeModel(updatedTask.getEmployeeModel());
         return taskRepository.save(task);
     }
 

@@ -49,13 +49,7 @@ public class OrderController {
         CustomerModel customer =
                 customerRepository.findById(orderRequest.getCustomer()).orElseThrow(NoSuchElementException::new);
         List<TaskModel> tasks = null;
-        if (orderRequest.getTasks() != null) {
-            tasks = new ArrayList<>();
-            for (String taskId : orderRequest.getTasks()) {
-                TaskModel taskModel = taskRepository.findById(taskId).orElseThrow(NoSuchElementException::new);
-                tasks.add(taskModel);
-            }
-        }
+
         List<ItemModel> itemModels = new ArrayList<>();
         for (String key : orderRequest.getItemMap().keySet()) {
             ItemModel itemModel = itemRepository.findById(key).orElseThrow(NoSuchElementException::new);

@@ -19,11 +19,13 @@ public class SeekController {
         this.seekRepository = taskRepository;
     }
 
+    @CrossOrigin
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public SeekModel add(@RequestBody OrderModel orderModel) {
         return seekRepository.save(new SeekModel(orderModel));
     }
+
 
     @CrossOrigin
     @GetMapping

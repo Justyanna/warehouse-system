@@ -1,37 +1,43 @@
 package edu.uwb.ii.warehouse.components.Task;
 
 import edu.uwb.ii.warehouse.components.Employee.EmployeeModel;
+import edu.uwb.ii.warehouse.components.Order.OrderModel;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "tasks")
 public class TaskModel {
 
-    private EmployeeModel packer;
-    private EmployeeModel seeker;
+    @DBRef
+    private EmployeeModel employeeModel;
+    @DBRef
+    private OrderModel orderModel;
     private String id;
     private String date;
+    private String type;
 
-    public TaskModel(EmployeeModel packer, EmployeeModel seeker, String id, String date) {
-        this.packer = packer;
-        this.seeker = seeker;
+    public TaskModel(EmployeeModel employeeModel, OrderModel orderModel, String id, String date, String type) {
+        this.employeeModel = employeeModel;
+        this.orderModel = orderModel;
         this.id = id;
         this.date = date;
+        this.type = type;
     }
 
-    public EmployeeModel getPacker() {
-        return packer;
+    public OrderModel getOrderModel() {
+        return orderModel;
     }
 
-    public void setPacker(EmployeeModel packer) {
-        this.packer = packer;
+    public String getType() {
+        return type;
     }
 
-    public EmployeeModel getSeeker() {
-        return seeker;
+    public EmployeeModel getEmployeeModel() {
+        return employeeModel;
     }
 
-    public void setSeeker(EmployeeModel seeker) {
-        this.seeker = seeker;
+    public void setEmployeeModel(EmployeeModel employeeModel) {
+        this.employeeModel = employeeModel;
     }
 
     public String getId() {
