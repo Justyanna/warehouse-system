@@ -8,7 +8,9 @@ import {
 	OrdersCrudPage,
 	OrderHistory,
 	InventoryPage,
-	AddOrders
+	AddOrders,
+	OrderManagerView,
+	OrderEmployeeView
 } from './pages';
 import ManagerPanel from './pages/managerPanel';
 import { useAuth } from './services/Auth';
@@ -53,13 +55,12 @@ const App = () => {
 	const authorizedRoutes = (
 		<Switch>
 			<Redirect from="/login" to="/main" />
-			<Route exact path="/main" component={MainPage} />
 		</Switch>
 	);
 
 	const managerRole = (
 		<Switch>
-			<Route exact path="/ordersHistory" component={OrderHistory} />
+			<Route exact path="/orders" component={OrderManagerView} />
 			<Route exact path="/main" component={ManagerPanel} />
 			<Route exact path="/add" component={AddOrders} />
 		</Switch>
@@ -73,7 +74,8 @@ const App = () => {
 
 	const seekerRole = (
 		<Switch>
-			<Route exact path="/main" />
+			<Route exact path="/orders" component={OrderEmployeeView} />
+			<Route exact path="/main" component={MainPage} />
 		</Switch>
 	);
 

@@ -7,3 +7,5 @@ export { default as OrderHistory } from './history';
 export { default as InventoryPage } from './inventoryPage';
 export { default as ManagerPage } from './managerPanel';
 export { default as AddOrders } from './addOrders';
+export { default as OrderManagerView } from './ordersManagerView';
+export { default as OrderEmployeeView } from './OrdersEmployeeView';

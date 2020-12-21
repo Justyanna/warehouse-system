@@ -25,7 +25,7 @@ const EmployeeCrudPage = () => {
 	const [ value, setValue ] = React.useState('');
 	const [ field, setField ] = React.useState('lastName');
 	const [ currentPage, setCurrentPage ] = React.useState(1);
-	const [ postsPerPage ] = React.useState(12);
+	const [ postsPerPage ] = React.useState(10);
 	const [ firstName, setFirstName ] = React.useState('');
 	const [ lastName, setLastName ] = React.useState('');
 	const [ email, setEmail ] = React.useState('');

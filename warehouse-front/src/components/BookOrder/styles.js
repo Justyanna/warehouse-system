@@ -27,14 +27,8 @@ const useStyles = makeStyles((theme) => ({
 		color: 'black'
 	},
 
-	buttonRealized: {
-		backgroundColor: '#9b88d1',
-		color: 'black',
-		marginRight: '10px'
-	},
-
-	buttonUpdate: {
-		backgroundColor: '#6a8f68',
+	buttonAdd: {
+		backgroundColor: '#9b68bd',
 		marginRight: '10px',
 		color: 'black'
 	},

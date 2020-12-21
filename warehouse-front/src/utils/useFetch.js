@@ -1,5 +1,6 @@
 import React from 'react';
 import api from './../services/Api';
+import { toast } from 'react-toastify';
 
 const useFetch = (path, defaultData) => {
 	const [ data, setData ] = React.useState(null);
@@ -16,7 +17,9 @@ const useFetch = (path, defaultData) => {
 					});
 
 					response && setData(response.data);
-				} catch (ex) {}
+				} catch (ex) {
+					toast.error('Coś poszło źle, wróć tu jutro!');
+				}
 			})();
 		},
 		[ path, refetchFlag ]

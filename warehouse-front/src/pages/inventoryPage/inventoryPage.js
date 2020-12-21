@@ -21,7 +21,7 @@ const InventoryPage = () => {
 	const auth = useAuth();
 	const { data: items, refetch: refetchItems } = useFetch('/items');
 	const [ currentPage, setCurrentPage ] = React.useState(1);
-	const [ postsPerPage ] = React.useState(10);
+	const [ postsPerPage ] = React.useState(8);
 	const indexOfLastEmployees = currentPage * postsPerPage;
 	const indexOfFirstEmployees = indexOfLastEmployees - postsPerPage;
 	const currentitems = items && items.slice(indexOfFirstEmployees, indexOfLastEmployees);

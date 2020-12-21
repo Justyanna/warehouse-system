@@ -92,20 +92,25 @@ const AddOrders = () => {
 	};
 
 	const handleSave = async () => {
-		const orderId = right[right.length - 1];
-		const order = orders.filter((order) => order.id === orderId && !orderModels.includes(order))[0];
-		const token = localStorage.getItem('token');
-		try {
-			if (order) {
-				api.post(`/seeks`, order, {
-					headers: { Authorization: `Bearer ${token}` }
-				});
+		right.forEach((element) => {
+			const order = orders.filter((order) => order.id === element)[0];
+			if (orderModels.indexOf(element) === -1) {
+				const token = localStorage.getItem('token');
+				try {
+					api.post(`/seeks`, order, {
+						headers: { Authorization: `Bearer ${token}` }
+					});
+
+					refetchOrders();
+					refetchOrdersForSeek();
+				} catch (ex) {
+					toast.error('Przepraszamy, coś nie pykło!');
+				}
 			}
-			console.log(left);
-			refetchOrders();
-			refetchOrdersForSeek();
-		} catch (ex) {}
-		toast.error('Przepraszamy, coś nie pykło!');
+
+			var ids2 = [];
+			ordersForSeek && ordersForSeek.map(({ orderModel }) => ids2.push(orderModel.id));
+		});
 	};
 
 	const customListRight = (title, items) => (
@@ -175,7 +180,6 @@ const AddOrders = () => {
 		if (left === null) {
 			var ids = [];
 			var ids2 = [];
-
 			ordersForSeek && ordersForSeek.map(({ orderModel }) => ids2.push(orderModel.id));
 			intersectionList && intersectionList.map(({ id }) => ids.push(id));
 			setLeft(ids);

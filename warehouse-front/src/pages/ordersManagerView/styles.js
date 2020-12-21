@@ -24,20 +24,19 @@ const useStyles = makeStyles(() => ({
 	},
 
 	rooot: {
-		paddingLeft: '20px',
-		paddingRight: '20px',
+		paddingLeft: '40px',
+		paddingRight: '40px',
 		display: 'grid',
 		gridTemplateRows: 'auto',
 		gridGap: '0.5rem'
 	},
 
 	main: {
-		paddingLeft: '30px',
-		paddingRight: '30px',
-		marginTop: '4vh',
+		marginTop: '40px',
 		display: 'grid',
-		gridTemplateColumns: 'repeat(auto-fit, minmax(20.5rem, 1fr))',
-		gridGap: '1.2rem'
+		paddingLeft: '20px',
+		gridTemplateColumns: 'repeat(auto-fit, minmax(21rem, 1fr))',
+		gridGap: '1rem'
 	},
 
 	add: {
@@ -45,9 +44,13 @@ const useStyles = makeStyles(() => ({
 		marginLeft: '20px'
 	},
 
-	role: {
-		marginTop: '4px'
-	}
+	loader: {
+		marginTop: '45vh',
+		marginLeft: '49vw',
+		marginRight: '45vw'
+	},
+
+	role: {}
 }));
 
 export default useStyles;

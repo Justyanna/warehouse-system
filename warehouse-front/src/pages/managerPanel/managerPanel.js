@@ -19,7 +19,7 @@ const ManagerPanel = () => {
 	};
 
 	const callOrderHistory = async () => {
-		history.push('/ordersHistory');
+		history.push('/orders');
 	};
 
 	return (

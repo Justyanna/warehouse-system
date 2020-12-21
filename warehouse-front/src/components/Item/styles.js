@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: '370px',
 		backgroundColor: '#d6d6d6',
 		color: 'black',
-		height: '265px',
+		height: '250px',
 		spacing: 1
 	},
 
