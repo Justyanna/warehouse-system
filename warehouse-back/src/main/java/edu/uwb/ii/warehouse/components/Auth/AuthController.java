@@ -22,6 +22,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -65,22 +66,24 @@ public class AuthController {
                                        employeeModel.getPosition());
         List<TaskModel> taskModels = taskRepository.findAll();
 
-        if (!taskModels.contains(task)) {
-            List<TaskModel> tasks;
-            if (orderModel.getTasks() == null) {
-                tasks = new ArrayList<>();
-            } else {
-                tasks = orderModel.getTasks();
-            }
-            tasks.add(task);
-            orderModel.setStatus("In preparation");
-            orderModel.setTasks(tasks);
-            taskRepository.save(task);
-        }
+        orderModel.setStatus("In preparation");
+        taskRepository.save(task);
 
         if (!orderRepository.findAll().contains(orderModel)) {
             orderRepository.save(orderModel);
         }
+    }
+
+    @CrossOrigin
+    @PostMapping("/tasks")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public List<TaskModel> getAllSeekers(@RequestBody String token) {
+        EmployeeModel employeeModel = employees.findByEmail(tokenEmailMap.get(token));
+
+        return taskRepository.findAll()
+                .stream()
+                .filter(x -> x.getEmployeeModel().getId().equals(employeeModel.getId()))
+                .collect(Collectors.toList());
     }
 
     @SuppressWarnings("rawtypes")

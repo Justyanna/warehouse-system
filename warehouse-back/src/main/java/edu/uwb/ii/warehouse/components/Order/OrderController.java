@@ -57,7 +57,7 @@ public class OrderController {
         }
 
         OrderModel order =
-                new OrderModel(customer, itemModels, orderRequest.getItemMap(), tasks, orderRequest.getStatus(),
+                new OrderModel(customer, itemModels, orderRequest.getItemMap(), orderRequest.getStatus(),
                                orderRequest.getDelivery());
         return orderRepository.save(order);
     }
@@ -79,7 +79,6 @@ public class OrderController {
         OrderModel order = orderRepository.findById(id).orElseThrow(NoSuchElementException::new);
         order.setCustomer(updatedOrder.getCustomer());
         order.setStatus(updatedOrder.getStatus());
-        order.setTasks(updatedOrder.getTasks());
         order.setItems(updatedOrder.getItems());
         order.setMap(updatedOrder.getMap());
         order.setDelivery(updatedOrder.getDelivery());

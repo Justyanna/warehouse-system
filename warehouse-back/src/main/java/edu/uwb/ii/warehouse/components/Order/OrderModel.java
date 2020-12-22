@@ -1,9 +1,7 @@
 package edu.uwb.ii.warehouse.components.Order;
 
-import com.mongodb.lang.Nullable;
 import edu.uwb.ii.warehouse.components.Customer.CustomerModel;
 import edu.uwb.ii.warehouse.components.Item.ItemModel;
-import edu.uwb.ii.warehouse.components.Task.TaskModel;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,19 +22,16 @@ public class OrderModel {
     @DBRef
     private List<ItemModel> items;
     private Map<String, Integer> map;
-    @Nullable
-    private List<TaskModel> tasks;
     private String status;
     private String delivery;
     private String timestamp;
 
 
-    public OrderModel(CustomerModel customer, List<ItemModel> items, Map<String, Integer> map, @Nullable List<TaskModel> tasks,
+    public OrderModel(CustomerModel customer, List<ItemModel> items, Map<String, Integer> map,
                       String status, String delivery) {
         this.customer = customer;
         this.items = items;
         this.map = map;
-        this.tasks = tasks;
         this.status = status;
         this.delivery = delivery;
         double sum = 0;
@@ -50,7 +45,7 @@ public class OrderModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, totalPrice, items, map, tasks, status, delivery);
+        return Objects.hash(id, customer, totalPrice, items, map, status, delivery);
     }
 
     @Override
@@ -89,13 +84,6 @@ public class OrderModel {
         this.totalPrice = totalPrice;
     }
 
-    public List<TaskModel> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<TaskModel> tasks) {
-        this.tasks = tasks;
-    }
 
     public String getStatus() {
         return status;
