@@ -1,0 +1,14 @@
+export { default as LoginPage } from './login';
+export { default as mainPageSeker } from './mainSeeker';
+export { default as EmployeeCrudPage } from './employeeCrudPage';
+export { default as AdminPanel } from './adminPanel';
+export { default as OrdersCrudPage } from './ordersCrudPage';
+export { default as OrderHistory } from './history';
+export { default as InventoryPage } from './inventoryPage';
+export { default as ManagerPage } from './managerPanel';
+export { default as AddOrders } from './addOrders';
+export { default as OrderManagerView } from './ordersManagerView';
+export { default as OrderEmployeeView } from './OrdersEmployeeView';
+export { default as TaskPage } from './TasksPage';
+export { default as TasksEmployeePage } from './TasksEmplpoyeePage';
+export { default as OrdersPackerView } from './OrdersPackerView';
