@@ -1,6 +1,6 @@
 import React from 'react';
 import useFetch from '../../utils/useFetch';
-import { Toolbar, IconButton, AppBar, Button } from '@material-ui/core';
+import { Typography, Toolbar, IconButton, AppBar } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './styles';
 import { useAuth } from '../../services/Auth.js';
@@ -22,7 +22,8 @@ const OrderEmployeeView = () => {
 	const indexOfFirstEmployees = indexOfLastEmployees - postsPerPage;
 	const currentOrders = orders && orders.slice(indexOfFirstEmployees, indexOfLastEmployees);
 	const paginate = (pageNumber) => setCurrentPage(pageNumber);
-	const avaible = orders && orders.filter((order) => order.orderModel.tasks === null);
+	const avaible =
+		currentOrders && currentOrders.filter((order) => order.orderModel && order.orderModel.status === 'created');
 
 	const logout = async () => {
 		await auth.logout();
@@ -33,7 +34,44 @@ const OrderEmployeeView = () => {
 	};
 
 	if (!Boolean(orders)) {
-		return <CircularProgress />;
+		return <CircularProgress size="4rem" className={classes.loader} />;
+	}
+
+	if (avaible && avaible.length === 0) {
+		return (
+			<div className={classes.content}>
+				<AppBar position="static" className={classes.bar}>
+					<Toolbar>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={logout}
+						>
+							<ExitToAppIcon fontSize="large" />
+						</IconButton>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={undo}
+						>
+							<UndoRoundedIcon />
+						</IconButton>
+					</Toolbar>
+				</AppBar>
+				<div className={classes.rooot}>
+					<div className={classes.main}>
+						<Typography className={classes.empty} variant="h4" component="h4" gutterBottom>
+							Brak zamówień
+						</Typography>
+					</div>
+				</div>
+				<ToastContainer />
+			</div>
+		);
 	}
 
 	return (

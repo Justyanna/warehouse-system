@@ -18,6 +18,10 @@ const MainPage = () => {
 		history.push('/orders');
 	};
 
+	const callTasks = async () => {
+		history.push('/tasks');
+	};
+
 	return (
 		<div className={classes.content}>
 			<AppBar position="static" className={classes.bar}>
@@ -42,7 +46,9 @@ const MainPage = () => {
 						</Button>
 					</Grid>
 					<Grid item xs={12}>
-						<Button className={classes.paper}>ZADANIA</Button>
+						<Button className={classes.paper} onClick={callTasks}>
+							ZADANIA
+						</Button>
 					</Grid>
 				</Grid>
 			</div>

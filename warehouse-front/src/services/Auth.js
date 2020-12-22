@@ -123,6 +123,7 @@ const AuthProvider = (props) => {
 		setAuthorized(false);
 		localStorage.removeItem('token');
 		history.push('/login');
+		window.location.reload();
 	};
 
 	return (

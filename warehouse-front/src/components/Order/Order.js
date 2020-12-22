@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import UpdateOrderDialog from './../updateOrderDialog';
 import Switch from '@material-ui/core/Switch';
 
-const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, refetchOrders, boolean }) => {
+const Order = ({ id, customer, totalPrice, items, map, status, delivery, refetchOrders, boolean }) => {
 	const [ submitting, setSubmitting ] = React.useState(false);
 	const [ isConfirmationDialogOpen, setIsConfirmationDialogOpen ] = React.useState(false);
 	const [ isUpdateDialogOpen, setIsUpdateDialogOpen ] = React.useState(false);
@@ -65,7 +65,6 @@ const Order = ({ id, customer, totalPrice, items, map, tasks, status, delivery, 
 			totalPrice: price ? price : totalPrice,
 			items: items,
 			map: map,
-			tasks: tasks,
 			status: newstatus ? newstatus : status
 		};
 		try {

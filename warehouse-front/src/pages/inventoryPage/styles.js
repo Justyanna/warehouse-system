@@ -47,6 +47,18 @@ const useStyles = makeStyles(() => ({
 
 	role: {
 		marginTop: '4px'
+	},
+	empty: {
+		padding: '10%',
+		backgroundColor: 'white',
+		textAlign: 'center',
+		opacity: 0.5
+	},
+
+	loader: {
+		marginTop: '45vh',
+		marginLeft: '49vw',
+		marginRight: '45vw'
 	}
 }));
 

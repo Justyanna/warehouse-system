@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import {
 	LoginPage,
-	MainPage,
+	mainPageSeker,
 	EmployeeCrudPage,
 	AdminPanel,
 	OrdersCrudPage,
@@ -10,7 +10,10 @@ import {
 	InventoryPage,
 	AddOrders,
 	OrderManagerView,
-	OrderEmployeeView
+	OrderEmployeeView,
+	TaskPage,
+	TasksEmployeePage,
+	OrdersPackerView
 } from './pages';
 import ManagerPanel from './pages/managerPanel';
 import { useAuth } from './services/Auth';
@@ -63,19 +66,23 @@ const App = () => {
 			<Route exact path="/orders" component={OrderManagerView} />
 			<Route exact path="/main" component={ManagerPanel} />
 			<Route exact path="/add" component={AddOrders} />
+			<Route exact path="/tasks" component={TaskPage} />
 		</Switch>
 	);
 
 	const packerRole = (
 		<Switch>
-			<Route exact path="/main" />
+			<Route exact path="/main" component={mainPageSeker} />
+			<Route exact path="/orders" component={OrdersPackerView} />s
+			<Route exact path="/tasks" component={TasksEmployeePage} />
 		</Switch>
 	);
 
 	const seekerRole = (
 		<Switch>
 			<Route exact path="/orders" component={OrderEmployeeView} />
-			<Route exact path="/main" component={MainPage} />
+			<Route exact path="/main" component={mainPageSeker} />
+			<Route exact path="/tasks" component={TasksEmployeePage} />
 		</Switch>
 	);
 

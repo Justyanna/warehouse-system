@@ -1,6 +1,6 @@
 import React from 'react';
 import useFetch from '../../utils/useFetch';
-import { Button, TextField, Toolbar, IconButton, AppBar } from '@material-ui/core';
+import { Typography, Button, TextField, Toolbar, IconButton, AppBar } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './styles';
 import { useAuth } from '../../services/Auth.js';
@@ -21,7 +21,7 @@ const InventoryPage = () => {
 	const auth = useAuth();
 	const { data: items, refetch: refetchItems } = useFetch('/items');
 	const [ currentPage, setCurrentPage ] = React.useState(1);
-	const [ postsPerPage ] = React.useState(8);
+	const [ postsPerPage ] = React.useState(10);
 	const indexOfLastEmployees = currentPage * postsPerPage;
 	const indexOfFirstEmployees = indexOfLastEmployees - postsPerPage;
 	const currentitems = items && items.slice(indexOfFirstEmployees, indexOfLastEmployees);
@@ -85,7 +85,44 @@ const InventoryPage = () => {
 	};
 
 	if (!Boolean(items)) {
-		return <CircularProgress />;
+		return <CircularProgress size="4rem" className={classes.loader} />;
+	}
+
+	if (items && items.length === 0) {
+		return (
+			<div className={classes.content}>
+				<AppBar position="static" className={classes.bar}>
+					<Toolbar>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={logout}
+						>
+							<ExitToAppIcon fontSize="large" />
+						</IconButton>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={undo}
+						>
+							<UndoRoundedIcon />
+						</IconButton>
+					</Toolbar>
+				</AppBar>
+				<div className={classes.rooot}>
+					<div className={classes.main}>
+						<Typography className={classes.empty} variant="h4" component="h4" gutterBottom>
+							Brak produktów, dodaj jakieś aby wyświetlić!
+						</Typography>
+					</div>
+				</div>
+				<ToastContainer />
+			</div>
+		);
 	}
 
 	return (

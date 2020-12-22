@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: '370px',
 		backgroundColor: '#d6d6d6',
 		color: 'black',
-		height: '250px',
+		height: '260px',
 		spacing: 1
 	},
 
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	buttonDelete: {
-		backgroundColor: '#bd4848',
+		backgroundColor: '#ff584d',
 		color: 'black'
 	},
 

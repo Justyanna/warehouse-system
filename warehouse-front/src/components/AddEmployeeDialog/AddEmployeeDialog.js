@@ -1,6 +1,5 @@
 import React from 'react';
 import { MenuItem, Dialog, DialogTitle, DialogActions, Button, TextField } from '@material-ui/core';
-
 const AddEmployeeDialog = ({
 	firstName,
 	setFirstName,
@@ -29,7 +28,7 @@ const AddEmployeeDialog = ({
 	flatPropsRole,
 	classes
 }) => (
-	<Dialog open={isDialogOpen} onClose={handleCancel}>
+	<Dialog open={isDialogOpen} onClose={handleCancel} className={classes.dialog}>
 		<DialogTitle>Podaj dane nowego pracownika</DialogTitle>
 		<TextField
 			id="filled-basic-fn"

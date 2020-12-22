@@ -2,11 +2,11 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
 	rooot: {
-		minWidth: '350px',
-		maxWidth: '360px',
+		minWidth: '200px',
+		maxWidth: '400px',
 		backgroundColor: '#d6d6d6',
 		color: 'black',
-		height: '250px',
+
 		spacing: 1
 	},
 
@@ -23,14 +23,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	buttonDelete: {
-		backgroundColor: '#ff584d',
+		backgroundColor: '#6a8f68',
 		color: 'black'
-	},
-
-	buttonRealized: {
-		backgroundColor: '#9b88d1',
-		color: 'black',
-		marginRight: '10px'
 	},
 
 	buttonUpdate: {

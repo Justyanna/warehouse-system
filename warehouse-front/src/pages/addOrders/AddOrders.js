@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button, Toolbar, IconButton, AppBar } from '@material-ui/core';
+import { Typography, Grid, Button, Toolbar, IconButton, AppBar } from '@material-ui/core';
 import useStyles from './styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useAuth } from '../../services/Auth.js';
@@ -31,7 +31,8 @@ const AddOrders = () => {
 	const orderModels =
 		ordersForSeek &&
 		ordersForSeek.map(({ orderModel }) => {
-			return orderModel.id;
+			if (orderModel !== null) return orderModel.id;
+			else return null;
 		});
 	const intersectionList = orders && orderModels && orders.filter((order) => orderModels.indexOf(order.id) === -1);
 
@@ -92,25 +93,26 @@ const AddOrders = () => {
 	};
 
 	const handleSave = async () => {
-		right.forEach((element) => {
-			const order = orders.filter((order) => order.id === element)[0];
-			if (orderModels.indexOf(element) === -1) {
-				const token = localStorage.getItem('token');
-				try {
+		try {
+			right.forEach((element) => {
+				const order = orders.filter((order) => order.id === element)[0];
+				if (orderModels.indexOf(element) === -1) {
+					const token = localStorage.getItem('token');
+
 					api.post(`/seeks`, order, {
 						headers: { Authorization: `Bearer ${token}` }
 					});
 
 					refetchOrders();
 					refetchOrdersForSeek();
-				} catch (ex) {
-					toast.error('Przepraszamy, coś nie pykło!');
 				}
-			}
-
-			var ids2 = [];
-			ordersForSeek && ordersForSeek.map(({ orderModel }) => ids2.push(orderModel.id));
-		});
+				var ids2 = [];
+				ordersForSeek && ordersForSeek.map(({ orderModel }) => ids2.push(orderModel.id));
+			});
+			toast.info('Zapisano!');
+		} catch (ex) {
+			toast.error('Przepraszamy, coś nie pykło!');
+		}
 	};
 
 	const customListRight = (title, items) => (
@@ -174,13 +176,49 @@ const AddOrders = () => {
 		</Card>
 	);
 
+	if (orders && orders.length === 0) {
+		return (
+			<div className={classes.content}>
+				<AppBar position="static" className={classes.bar}>
+					<Toolbar>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={logout}
+						>
+							<ExitToAppIcon fontSize="large" />
+						</IconButton>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={undo}
+						>
+							<UndoRoundedIcon />
+						</IconButton>
+					</Toolbar>
+				</AppBar>
+				<div className={classes.rooot}>
+					<div className={classes.main}>
+						<Typography className={classes.empty} variant="h4" component="h4" gutterBottom>
+							Brak zamówień
+						</Typography>
+					</div>
+				</div>
+				<ToastContainer />
+			</div>
+		);
+	}
 	if (!Boolean(orders)) {
-		return <CircularProgress />;
+		return <CircularProgress size="4rem" className={classes.loader} />;
 	} else {
 		if (left === null) {
 			var ids = [];
 			var ids2 = [];
-			ordersForSeek && ordersForSeek.map(({ orderModel }) => ids2.push(orderModel.id));
+			ordersForSeek && ordersForSeek.map(({ orderModel }) => orderModel && ids2.push(orderModel.id));
 			intersectionList && intersectionList.map(({ id }) => ids.push(id));
 			setLeft(ids);
 			setRight(ids2);

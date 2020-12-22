@@ -25,9 +25,23 @@ const useStyles = makeStyles(() => ({
 	},
 
 	list: {
-		width: ' 350px',
-		height: '430px',
+		paddingLeft: '90px',
+		width: ' 500px',
+		height: '600px',
 		overflow: 'auto'
+	},
+
+	empty: {
+		padding: '10%',
+		backgroundColor: 'white',
+		textAlign: 'center',
+		opacity: 0.5
+	},
+
+	loader: {
+		marginTop: '45vh',
+		marginLeft: '49vw',
+		marginRight: '45vw'
 	}
 }));
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Employee from './../../components/Employee';
 import useFetch from './../../utils/useFetch';
-import { MenuItem, TextField, Toolbar, IconButton, AppBar, Button } from '@material-ui/core';
+import { Typography, MenuItem, TextField, Toolbar, IconButton, AppBar, Button } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './styles';
 import { useAuth } from '../../services/Auth.js';
@@ -25,7 +25,7 @@ const EmployeeCrudPage = () => {
 	const [ value, setValue ] = React.useState('');
 	const [ field, setField ] = React.useState('lastName');
 	const [ currentPage, setCurrentPage ] = React.useState(1);
-	const [ postsPerPage ] = React.useState(10);
+	const [ postsPerPage ] = React.useState(12);
 	const [ firstName, setFirstName ] = React.useState('');
 	const [ lastName, setLastName ] = React.useState('');
 	const [ email, setEmail ] = React.useState('');
@@ -148,7 +148,7 @@ const EmployeeCrudPage = () => {
 	const employeesArray = employees ? employees : [ { lastName: 'Doe' } ];
 
 	const flatProps = {
-		options: employeesArray.map((option) => option[field])
+		options: [ ...new Set(employeesArray.map((option) => option[field])) ]
 	};
 
 	const flatPropsRole = {
@@ -156,7 +156,44 @@ const EmployeeCrudPage = () => {
 	};
 
 	if (!Boolean(employees)) {
-		return <CircularProgress />;
+		return <CircularProgress size="4rem" className={classes.loader} />;
+	}
+
+	if (employees && employees.length === 0) {
+		return (
+			<div className={classes.content}>
+				<AppBar position="static" className={classes.bar}>
+					<Toolbar>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={logout}
+						>
+							<ExitToAppIcon fontSize="large" />
+						</IconButton>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={undo}
+						>
+							<UndoRoundedIcon />
+						</IconButton>
+					</Toolbar>
+				</AppBar>
+				<div className={classes.rooot}>
+					<div className={classes.main}>
+						<Typography className={classes.empty} variant="h4" component="h4" gutterBottom>
+							Nie dodano jeszcze żadnego pracownika!
+						</Typography>
+					</div>
+				</div>
+				<ToastContainer />
+			</div>
+		);
 	}
 
 	return (
@@ -190,8 +227,9 @@ const EmployeeCrudPage = () => {
 			<div className={classes.rooot}>
 				<div className={classes.search}>
 					<TextField
+						aria-label="form"
 						className={classes.textField}
-						id="filled-field-serach"
+						id="form"
 						select
 						label="Wybierz pole po którym chcesz wyszukać"
 						value={field}
@@ -199,12 +237,15 @@ const EmployeeCrudPage = () => {
 						variant="outlined"
 					>
 						{fields.map((option) => (
-							<MenuItem key={option.value} value={option.value}>
+							<MenuItem key={option.value} aria-label="form-item" value={option.value}>
 								{option.label}
 							</MenuItem>
 						))}
 					</TextField>
+
 					<Autocomplete
+						aria-label="form-autocomplete"
+						id="form-autocomplete"
 						className={classes.textField}
 						{...flatProps}
 						onChange={(event, newInputValue) => {
@@ -213,7 +254,14 @@ const EmployeeCrudPage = () => {
 						value={value}
 						getOptionSelected={(option, value) => option.name === value.name}
 						renderInput={(params) => (
-							<TextField key={params.id} {...params} label="Znajdź pracownika" variant="outlined" />
+							<TextField
+								aria-label="form"
+								id="form"
+								key={params.id}
+								{...params}
+								label="Znajdź pracownika"
+								variant="outlined"
+							/>
 						)}
 					/>
 				</div>
@@ -272,11 +320,17 @@ const EmployeeCrudPage = () => {
 						)
 					)}
 				</div>
+				{!value && (
+					<Pagination
+						className={classes.pagination}
+						employeesPerPage={postsPerPage}
+						total={employees && employees.length}
+						paginate={paginate}
+					/>
+				)}
 			</div>
 			<ToastContainer />
-			{!value && (
-				<Pagination employeesPerPage={postsPerPage} total={employees && employees.length} paginate={paginate} />
-			)}
+
 			<AddEmployeeDialog
 				{...{
 					firstName,

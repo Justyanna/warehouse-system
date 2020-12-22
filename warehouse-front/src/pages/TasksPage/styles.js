@@ -32,12 +32,12 @@ const useStyles = makeStyles(() => ({
 	},
 
 	main: {
-		paddingLeft: '35px',
-		paddingRight: '35px',
+		paddingLeft: '30px',
+		paddingRight: '30px',
+		marginTop: '4vh',
 		display: 'grid',
-		gridTemplateColumns: 'repeat(auto-fit, minmax(16rem, 1fr))',
-		gridGap: '1rem',
-		marginTop: '40px'
+		gridTemplateColumns: 'repeat(auto-fit, minmax(20.5rem, 1fr))',
+		gridGap: '1.2rem'
 	},
 
 	add: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(() => ({
 	},
 
 	role: {
-		marginTop: '8px'
+		marginTop: '4px'
 	},
 
 	empty: {

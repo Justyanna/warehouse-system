@@ -49,6 +49,19 @@ const useStyles = makeStyles(() => ({
 		marginLeft: '49vw',
 		marginRight: '45vw'
 	},
+	empty: {
+		padding: '10%',
+		backgroundColor: 'white',
+		textAlign: 'center',
+		opacity: 0.5
+	},
+
+	ready: {
+		marginTop: '20px',
+		color: 'black',
+		fontSize: '1.2rem',
+		backgroundColor: 'white'
+	},
 
 	role: {}
 }));

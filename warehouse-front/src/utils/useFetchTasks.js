@@ -1,7 +1,7 @@
 import React from 'react';
 import api from './../services/Api';
 
-const useFetch = (path, defaultData) => {
+const useFetchTasks = () => {
 	const [ data, setData ] = React.useState(null);
 	const [ refetchFlag, setRefetchFlag ] = React.useState(false);
 	const refetch = () => setRefetchFlag(!refetchFlag);
@@ -11,7 +11,7 @@ const useFetch = (path, defaultData) => {
 			(async function() {
 				try {
 					const token = localStorage.getItem('token');
-					const response = await api.get(path, {
+					const response = await api.post(`/api/auth/tasks`, token, {
 						headers: { Authorization: `Bearer ${token}` }
 					});
 
@@ -19,14 +19,10 @@ const useFetch = (path, defaultData) => {
 				} catch (ex) {}
 			})();
 		},
-		[ path, refetchFlag ]
+		[ refetchFlag ]
 	);
-
-	if (defaultData) {
-		return data || defaultData;
-	}
 
 	return { data, refetch };
 };
 
-export default useFetch;
+export default useFetchTasks;

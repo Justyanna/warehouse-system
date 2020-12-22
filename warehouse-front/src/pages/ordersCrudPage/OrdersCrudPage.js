@@ -1,6 +1,6 @@
 import React from 'react';
 import useFetch from '../../utils/useFetch';
-import { TextField, Toolbar, IconButton, AppBar } from '@material-ui/core';
+import { Typography, TextField, Toolbar, IconButton, AppBar } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './styles';
 import { useAuth } from '../../services/Auth.js';
@@ -18,7 +18,7 @@ const OrdersCrudPage = () => {
 	const auth = useAuth();
 	const { data: orders, refetch: refetchOrders } = useFetch('/orders');
 	const [ currentPage, setCurrentPage ] = React.useState(1);
-	const [ postsPerPage ] = React.useState(8);
+	const [ postsPerPage ] = React.useState(10);
 	const indexOfLastEmployees = currentPage * postsPerPage;
 	const indexOfFirstEmployees = indexOfLastEmployees - postsPerPage;
 	const currentOrders = orders && orders.slice(indexOfFirstEmployees, indexOfLastEmployees);
@@ -39,7 +39,44 @@ const OrdersCrudPage = () => {
 	};
 
 	if (!Boolean(orders)) {
-		return <CircularProgress />;
+		return <CircularProgress size="4rem" className={classes.loader} />;
+	}
+
+	if (orders && orders.length === 0) {
+		return (
+			<div className={classes.content}>
+				<AppBar position="static" className={classes.bar}>
+					<Toolbar>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={logout}
+						>
+							<ExitToAppIcon fontSize="large" />
+						</IconButton>
+						<IconButton
+							edge="end"
+							className={classes.menuButton}
+							color="inherit"
+							aria-label="menu"
+							onClick={undo}
+						>
+							<UndoRoundedIcon />
+						</IconButton>
+					</Toolbar>
+				</AppBar>
+				<div className={classes.rooot}>
+					<div className={classes.main}>
+						<Typography className={classes.empty} variant="h4" component="h4" gutterBottom>
+							Brak zamówień
+						</Typography>
+					</div>
+				</div>
+				<ToastContainer />
+			</div>
+		);
 	}
 
 	return (
@@ -85,19 +122,19 @@ const OrdersCrudPage = () => {
 					{value ? (
 						orders
 							.filter((order) => order.id === value)
-							.map(({ id, customer, totalPrice, items, delivery, tasks, status }) => (
+							.map(({ id, customer, totalPrice, items, delivery, status }) => (
 								<Order
 									boolean={true}
 									key={id}
-									{...{ id, customer, totalPrice, items, delivery, tasks, status }}
+									{...{ id, customer, totalPrice, items, delivery, status }}
 								/>
 							))
 					) : (
-						currentOrders.map(({ id, customer, totalPrice, items, delivery, map, tasks, status }) => (
+						currentOrders.map(({ id, customer, totalPrice, items, delivery, map, status }) => (
 							<Order
 								boolean={true}
 								key={id}
-								{...{ id, customer, totalPrice, map, items, delivery, tasks, status, refetchOrders }}
+								{...{ id, customer, totalPrice, map, items, delivery, status, refetchOrders }}
 							/>
 						))
 					)}
